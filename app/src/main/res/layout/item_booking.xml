@@ -1,0 +1,150 @@
+<androidx.cardview.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="8dp"
+    android:padding="16dp"
+    app:cardElevation="4dp"
+    app:cardCornerRadius="8dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="20dp"
+        android:orientation="vertical">
+
+        <!-- Always Visible Section -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <!-- Title -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:paddingBottom="8dp">
+
+                <TextView
+                    android:id="@+id/textMeetingTitle"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Meeting TIC-MS"
+                    android:textStyle="bold"
+                    android:textSize="18sp"
+                    android:textColor="@android:color/black" />
+
+                <ImageView
+                    android:id="@+id/chevronIcon"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:src="@drawable/ic_chevron_up"
+                    android:contentDescription="Expand or Collapse" />
+            </LinearLayout>
+
+            <!-- Requester Name -->
+            <TextView
+                android:id="@+id/textRequesterName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Requester Name"
+                android:textSize="14sp"
+                android:textColor="@android:color/darker_gray"
+                android:paddingBottom="4dp" />
+
+
+            <TextView
+                android:id="@+id/textDepartment"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Department: Unknown"
+                android:textSize="14sp"
+                android:textColor="@android:color/darker_gray"
+                android:paddingBottom="4dp" />
+
+            <!-- Date -->
+            <TextView
+                android:id="@+id/textMeetingDate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="30/11/2024"
+                android:textSize="14sp"
+                android:textColor="@android:color/darker_gray"
+                android:paddingBottom="4dp" />
+
+            <!-- Time -->
+            <TextView
+                android:id="@+id/textMeetingTime"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Start: 09:17"
+                android:textSize="14sp"
+                android:textColor="@android:color/darker_gray"
+                android:paddingBottom="4dp" />
+
+            <TextView
+                android:id="@+id/textEndTime"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="End: 06-12-2024 05:09"
+                android:textSize="14sp"
+                android:textColor="@android:color/darker_gray"
+                android:paddingBottom="4dp" />
+
+            <!-- Destination -->
+            <TextView
+                android:id="@+id/textDestination"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Destination: Ainaro"
+                android:textSize="14sp"
+                android:textColor="@android:color/darker_gray"
+                android:paddingBottom="8dp" />
+        </LinearLayout>
+
+        <!-- Expandable Content -->
+        <LinearLayout
+            android:id="@+id/expandableContent"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:visibility="gone">
+
+            <!-- Description -->
+            <TextView
+                android:id="@+id/textMeetingDescription"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Description: Training DDSIA"
+                android:textSize="14sp"
+                android:textColor="@android:color/darker_gray"
+                android:paddingBottom="4dp" />
+
+            <!-- Driver -->
+            <TextView
+                android:id="@+id/textDriver"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Driver: Driver Name"
+                android:textSize="14sp"
+                android:textColor="@android:color/darker_gray"
+                android:paddingBottom="4dp" />
+
+            <!-- Status -->
+            <TextView
+                android:id="@+id/textMeetingStatus"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Status: Approved"
+                android:textSize="14sp"
+                android:textColor="@android:color/holo_green_dark"
+                android:textStyle="bold" />
+        </LinearLayout>
+
+    </LinearLayout>
+
+</androidx.cardview.widget.CardView>

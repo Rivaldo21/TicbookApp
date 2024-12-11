@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="16dp">
+
+    <!-- Spinner untuk memilih tipe ruangan -->
+    <Spinner
+        android:id="@+id/spinnerRoomType"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+         />
+
+    <!-- Tombol Continue -->
+    <Button
+        android:id="@+id/buttonContinue"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Continue"
+        android:layout_marginTop="16dp" />
+</LinearLayout>
