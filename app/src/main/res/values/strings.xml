@@ -10,4 +10,24 @@
         <item>FINANCAS</item>
     </string-array>
 
+    <string-array name="spRoomType">
+        <item>Room</item>
+        <item>TIC MEETING ROOM</item>
+    </string-array>
+
+    <string-array name="spPilihRoom">
+        <item>Asuntu</item>
+        <item>Official Meeting</item>
+        <item>Document Delivery</item>
+        <item>Guest Transport</item>
+        <item>Site Visit</item>
+    </string-array>
+
+    <string-array name="spTotalPasejero">
+        <item>Total Pasajeiro</item>
+        <item>Kadeira 3</item>
+        <item>Kadeira 5</item>
+        <item>Kadeira 6</item>
+        <item>Kadeira 8</item>
+    </string-array>
 </resources>

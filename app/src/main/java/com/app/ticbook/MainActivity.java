@@ -2,6 +2,8 @@ package com.app.ticbook;
 
 import android.annotation.SuppressLint;
 import android.os.Bundle;
+import android.view.View;
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
@@ -9,14 +11,15 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class MainActivity extends AppCompatActivity {
 
+    BottomNavigationView bottomNavigation;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-
         // Inisializa BottomNavigationView
-        BottomNavigationView bottomNavigation = findViewById(R.id.bottomNavigation);
+        bottomNavigation = findViewById(R.id.bottomNavigation);
 
         // Kontinua fragment default
         loadFragment(new HomeFragment());
@@ -47,5 +50,22 @@ public class MainActivity extends AppCompatActivity {
         .beginTransaction()
         .replace(R.id.fragmentContainer, fragment)
         .commit();
+    }
+
+    @Override
+    public void onBackPressed() {
+        if (getSupportFragmentManager().getBackStackEntryCount() > 0) {
+            getSupportFragmentManager().popBackStack();
+        } else {
+            super.onBackPressed();
+        }
+    }
+
+    public void hideBottomBar(Boolean hide){
+        if (hide){
+            bottomNavigation.setVisibility(View.GONE);
+        } else {
+            bottomNavigation.setVisibility(View.VISIBLE);
+        }
     }
 }

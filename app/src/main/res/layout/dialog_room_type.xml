@@ -1,23 +1,84 @@
-<?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
-    android:padding="16dp">
+    android:padding="24dp"
+    android:background="@drawable/rounded_card">
 
-    <!-- Spinner untuk memilih tipe ruangan -->
-    <Spinner
-        android:id="@+id/spinnerRoomType"
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/tvTitleRoom"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Hili tipu room?"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginBottom="8dp" />
+
+        <ImageView
+            android:id="@+id/imgClose"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:src="@drawable/baseline_clear_24"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-         />
+        android:text="Add new event today"
+        android:textSize="14sp"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginBottom="16dp" />
 
-    <!-- Tombol Continue -->
+    <TextView
+        android:id="@+id/tvTitleSpinner"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:text="Hili Room"
+        android:textSize="14sp"
+        android:layout_gravity="center_horizontal" />
+
+   <androidx.constraintlayout.widget.ConstraintLayout
+       android:background="@drawable/bg_rounded_button"
+       android:backgroundTint="@color/gray"
+       android:layout_marginTop="10dp"
+       android:layout_width="match_parent"
+       android:layout_height="wrap_content">
+
+       <Spinner
+           android:id="@+id/spinnerRoomType"
+           android:layout_width="match_parent"
+           android:layout_height="wrap_content"
+           app:layout_constraintStart_toStartOf="parent"
+           app:layout_constraintEnd_toEndOf="parent"
+           app:layout_constraintTop_toTopOf="parent"
+           android:layout_marginHorizontal="10dp"
+           android:layout_marginVertical="5dp"
+           app:layout_constraintBottom_toBottomOf="parent"/>
+
+   </androidx.constraintlayout.widget.ConstraintLayout>
+
     <Button
         android:id="@+id/buttonContinue"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Continue"
-        android:layout_marginTop="16dp" />
+        android:text="Kontinua"
+        android:layout_gravity="end"
+        android:background="@drawable/bg_rounded_button"
+        android:layout_marginTop="16dp"
+        app:backgroundTint="@color/blue"
+        android:textColor="@android:color/white" />
+
 </LinearLayout>
