@@ -237,7 +237,6 @@ public class HomeFragment extends Fragment {
                 } else {
                     Log.e(TAG, "Error fetching bookings: " + response.code() + " " + response.message());
                 }
-
             }
 
             @Override
