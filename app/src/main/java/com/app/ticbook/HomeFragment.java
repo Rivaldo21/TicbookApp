@@ -234,6 +234,7 @@ public class HomeFragment extends Fragment {
             @Override
             public void onResponse(Call<BookingResponse> call, Response<BookingResponse> response) {
                 if (response.isSuccessful() && response.body() != null) {
+
                 } else {
                     Log.e(TAG, "Error fetching bookings: " + response.code() + " " + response.message());
                 }
