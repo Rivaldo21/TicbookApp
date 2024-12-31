@@ -107,6 +107,8 @@ public class BookingListAdapter extends RecyclerView.Adapter<BookingListAdapter.
         holder.textMeetingDateExp.setText(dateOnly);
         holder.textMeetingTimeExp.setText(time + " - " + timeEnd);
 
+        holder.tvDescExp.setText(booking.getTravel_description());
+
 //        holder.textEndTime.setText("End: " + booking.getFormatted_end_time());
 
         // Set destination (only for Vehicle)
@@ -130,7 +132,7 @@ public class BookingListAdapter extends RecyclerView.Adapter<BookingListAdapter.
     }
 
     static class BookingViewHolder extends RecyclerView.ViewHolder {
-        TextView textMeetingTitle, textExpMeetingTitle, textMeetingTitleExp, textMeetingTimeExp, textMeetingDateExp, textRequesterName, textDepartment, textMeetingDate, textMeetingTime, textEndTime, textDestination, textMeetingDescription, textDriver, textMeetingStatus;
+        TextView textMeetingTitle, textExpMeetingTitle, textMeetingTitleExp, textMeetingTimeExp, textMeetingDateExp, tvDescExp, textRequesterName, textDepartment, textMeetingDate, textMeetingTime, textEndTime, textDestination, textMeetingDescription, textDriver, textMeetingStatus;
         ImageView chevronIcon;
         View expandableContent;
         LinearLayout clItem, lyIcon;
@@ -146,6 +148,8 @@ public class BookingListAdapter extends RecyclerView.Adapter<BookingListAdapter.
 
             textMeetingTimeExp = itemView.findViewById(R.id.textExpMeetingTime);
             textMeetingDateExp = itemView.findViewById(R.id.textExpMeetingDate);
+
+            tvDescExp = itemView.findViewById(R.id.tvDescExp);
 
 //            textRequesterName = itemView.findViewById(R.id.textRequesterName);
 //            textDepartment = itemView.findViewById(R.id.textDepartment);

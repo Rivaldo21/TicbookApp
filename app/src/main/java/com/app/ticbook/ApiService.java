@@ -27,4 +27,6 @@ public interface ApiService {
     @GET("api/departements/")
     Call<DepartementResponse> getDepartements();
 
+    @POST("api/login/")
+    Call<LoginResponse> login(@Body RequestBody params);
 }

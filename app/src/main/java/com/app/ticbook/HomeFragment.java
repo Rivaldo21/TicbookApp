@@ -227,7 +227,9 @@ public class HomeFragment extends Fragment {
             e.printStackTrace();
         }
 
-        String auth = "Token 59b572169b7520142605b2d1e82e6f5e1f4461c3";
+        SessionManager sessionManager = new SessionManager(requireContext());
+        String token = sessionManager.getToken();
+        String auth = "Token " + token;
 
         RequestBody body = RequestBody.create(okhttp3.MediaType.parse("application/json; charset=utf-8"), String.valueOf(jsonBody));
         apiService.createBooking(auth, body).enqueue(new Callback<BookingResponse>() {
