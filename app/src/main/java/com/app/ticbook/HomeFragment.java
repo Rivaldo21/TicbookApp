@@ -250,7 +250,7 @@ public class HomeFragment extends Fragment {
         Toast.makeText(requireContext(), "Booking berhasil ditambahkan!", Toast.LENGTH_SHORT).show();
 
         Fragment mFragment = new ListBookingFragment();
-        getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragmentContainer, mFragment).addToBackStack(HomeFragment.TAG).commit();
+        getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, mFragment).addToBackStack(HomeFragment.TAG).commit();
     }
 
     @Override

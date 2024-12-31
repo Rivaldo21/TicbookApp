@@ -39,7 +39,7 @@ public class MainActivity extends AppCompatActivity {
             if (selectedFragment != null) {
                 getSupportFragmentManager()
                 .beginTransaction()
-                .replace(R.id.fragmentContainer, selectedFragment)
+                .replace(R.id.fragment_container, selectedFragment)
                 .commit();
             }
             return true;
@@ -48,7 +48,7 @@ public class MainActivity extends AppCompatActivity {
         private void loadFragment(Fragment fragment) {
         getSupportFragmentManager()
         .beginTransaction()
-        .replace(R.id.fragmentContainer, fragment)
+        .replace(R.id.fragment_container, fragment)
         .commit();
     }
 

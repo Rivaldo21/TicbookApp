@@ -38,7 +38,7 @@ public class ListBookingFragment extends Fragment {
         ImageView imgBack = view.findViewById(R.id.imgBack);
         imgBack.setOnClickListener(v -> {
             Fragment mFragment = new HomeFragment();
-            getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragmentContainer, mFragment).commit();
+            getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, mFragment).commit();
         });
 
         // Inisializa RecyclerView
