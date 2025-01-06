@@ -16,7 +16,9 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import retrofit2.Call;
@@ -33,7 +35,7 @@ public class RoomTypeDialogFragment extends DialogFragment {
     private List<String> listString = new ArrayList<>();
     private List<Room> roomList = new ArrayList<>();
     private List<Vehicle> vehicleList = new ArrayList<>();
-    String resourceType = "";
+    String resourceType = "", dateStart = "" , dateEnd = "";
 
     public static RoomTypeDialogFragment newInstance(String resourceType, String selectedDate, String selectedTime, OnRoomTypeSelectedListener listener) {
         RoomTypeDialogFragment fragment = new RoomTypeDialogFragment();
@@ -49,6 +51,8 @@ public class RoomTypeDialogFragment extends DialogFragment {
         resourceType = "";
         Bundle mArgs = getArguments();
         resourceType = mArgs.getString("resourceType", "");
+        dateStart = mArgs.getString("dateStart", "");
+        dateEnd = mArgs.getString("dateEnd", "");
 
         Spinner spinnerRoomType = view.findViewById(R.id.spinnerRoomType);
         Button buttonContinue = view.findViewById(R.id.buttonContinue);
@@ -56,6 +60,39 @@ public class RoomTypeDialogFragment extends DialogFragment {
 
         TextView tvTitleRoom = view.findViewById(R.id.tvTitleRoom);
         TextView tvTitleSpinner = view.findViewById(R.id.tvTitleSpinner);
+
+        TextView tvDateStart = view.findViewById(R.id.tvDateStart);
+        TextView tvTimeStart = view.findViewById(R.id.tvTimeStart);
+
+        TextView tvDateEnd = view.findViewById(R.id.tvDateEnd);
+        TextView tvTimeEnd = view.findViewById(R.id.tvTimeEnd);
+
+        if (!dateStart.isEmpty()){
+            SimpleDateFormat dayFormat = new SimpleDateFormat("dd/MM/yyyy");
+            SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm");
+
+            SimpleDateFormat dateFormatNew = new SimpleDateFormat("dd/MM/yyyy HH:mm");
+
+            try {
+                Date dateStartDate = dateFormatNew.parse(dateStart);
+                Date dateEndDate = dateFormatNew.parse(dateEnd);
+
+                dateStart = dayFormat.format(dateStartDate);
+                tvDateStart.setText(dateStart);
+
+                String timeStart = timeFormat.format(dateStartDate);
+                tvTimeStart.setText(timeStart);
+
+                dateEnd = dayFormat.format(dateEndDate);
+                tvDateEnd.setText(dateEnd);
+
+                String timeEnd = timeFormat.format(dateEndDate);
+                tvTimeEnd.setText(timeEnd);
+
+            } catch (Exception e){
+
+            }
+        }
 
         if (resourceType.equals("Vehicle")){
             tvTitleRoom.setText("Hili tipu kareta?");

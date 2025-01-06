@@ -18,7 +18,9 @@ import androidx.annotation.Nullable;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.DialogFragment;
 
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 
 public class CalendarDialogFragment extends DialogFragment {
 
@@ -43,9 +45,13 @@ public class CalendarDialogFragment extends DialogFragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.dialog_calendar, container, false);
 
-        String resourceType = "";
+        String resourceType = "", timeStart = "";
+        Boolean isStartTime = true;
+
         Bundle mArgs = getArguments();
         resourceType = mArgs.getString("resourceType", "");
+        isStartTime = mArgs.getBoolean("isStartTime", true);
+        timeStart = mArgs.getString("timeStart", "");
 
         DatePicker datePicker = view.findViewById(R.id.datePicker);
         Button buttonContinue = view.findViewById(R.id.buttonContinue);
@@ -53,6 +59,33 @@ public class CalendarDialogFragment extends DialogFragment {
 
         TextView tvTitlePickDate = view.findViewById(R.id.tvTitlePickDate);
         TextView tvDescPickDate = view.findViewById(R.id.tvDescPickDate);
+
+        if (!isStartTime){
+            final Calendar cMin = Calendar.getInstance();
+            int year = 0;
+            int month = 0;
+            int day = 0;
+
+//            2025-01-02T11:44:00Z
+            SimpleDateFormat yearFormat = new SimpleDateFormat("yyyy");
+            SimpleDateFormat monthFormat = new SimpleDateFormat("MM");
+            SimpleDateFormat dayFormat = new SimpleDateFormat("dd");
+
+            SimpleDateFormat dateFormatNew = new SimpleDateFormat("dd/MM/yyyy");
+
+            try {
+                Date dateStart = dateFormatNew.parse(timeStart);
+
+                year = Integer.parseInt(yearFormat.format(dateStart));
+                month = Integer.parseInt(monthFormat.format(dateStart));
+                day = Integer.parseInt(dayFormat.format(dateStart));
+
+            } catch (Exception e){
+
+            }
+            cMin.set(year,(month - 1),day);
+            datePicker.setMinDate(cMin.getTimeInMillis());
+        }
 
         if (resourceType.equals("Vehicle")){
             tvTitlePickDate.setText("Data no oras sai?");

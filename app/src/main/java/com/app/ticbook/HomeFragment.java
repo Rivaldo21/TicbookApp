@@ -69,19 +69,58 @@ public class HomeFragment extends Fragment {
     }
 
     private void openBookingDialog(String resourceType) {
+        selectDateStart = "";
+        selectedTimeStart = "";
+
+        selectDateEnd = "";
+        selectedTimeEnd = "";
+
         CalendarDialogFragment datePickerDialog = CalendarDialogFragment.newInstance(resourceType, selectedDate -> {
             // Setelah memilih tanggal, tampilkan dialog untuk memilih waktu
             showTimePickerDialog(resourceType, selectedDate);
         });
         Bundle args = new Bundle();
         args.putString("resourceType", resourceType);
+        args.putBoolean("isStartTime", true);
         datePickerDialog.setArguments(args);
         datePickerDialog.show(getParentFragmentManager(), "DatePickerDialog");
     }
 
+    String selectDateStart, selectedTimeStart = "";
+    String selectDateEnd, selectedTimeEnd = "";
+
     private void showTimePickerDialog(String resourceType, String selectedDate) {
         TimePickerDialogFragment timePickerDialog = TimePickerDialogFragment.newInstance(resourceType, selectedDate, selectedTime -> {
             // Setelah memilih waktu, tampilkan dialog untuk memilih tipe ruangan/kendaraan
+//            showRoomTypeDialog(resourceType, selectedDate, selectedTime);
+            selectDateStart = selectedDate;
+            selectedTimeStart = selectedTime;
+
+            openBookingDialogEnd(resourceType);
+
+        });
+        timePickerDialog.show(getParentFragmentManager(), "TimePickerDialog");
+    }
+
+    private void openBookingDialogEnd(String resourceType) {
+        CalendarDialogFragment datePickerDialog = CalendarDialogFragment.newInstance(resourceType, selectedDate -> {
+            // Setelah memilih tanggal, tampilkan dialog untuk memilih waktu
+            showTimePickerDialogEnd(resourceType, selectedDate);
+        });
+        Bundle args = new Bundle();
+        args.putString("resourceType", resourceType);
+        args.putBoolean("isStartTime", false);
+        args.putString("timeStart", selectDateStart);
+        datePickerDialog.setArguments(args);
+        datePickerDialog.show(getParentFragmentManager(), "DatePickerDialog");
+    }
+
+    private void showTimePickerDialogEnd(String resourceType, String selectedDate) {
+        TimePickerDialogFragment timePickerDialog = TimePickerDialogFragment.newInstance(resourceType, selectedDate, selectedTime -> {
+            // Setelah memilih waktu, tampilkan dialog untuk memilih tipe ruangan/kendaraan
+            selectDateEnd = selectedDate;
+            selectedTimeEnd = selectedTime;
+
             showRoomTypeDialog(resourceType, selectedDate, selectedTime);
         });
         timePickerDialog.show(getParentFragmentManager(), "TimePickerDialog");
@@ -94,6 +133,9 @@ public class HomeFragment extends Fragment {
         });
         Bundle args = new Bundle();
         args.putString("resourceType", resourceType);
+        args.putString("dateStart", selectDateStart + " " + selectedTimeStart);
+        args.putString("dateEnd", selectDateEnd + " " + selectedTimeEnd);
+
         roomTypeDialog.setArguments(args);
         roomTypeDialog.show(getParentFragmentManager(), "RoomTypeDialog");
     }
@@ -167,19 +209,21 @@ public class HomeFragment extends Fragment {
         SimpleDateFormat dateFormatNew = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'");
 
         try {
-            Date dates = dateFormat.parse(date + " " + time);
+            Date dateStart = dateFormat.parse(selectDateStart + " " + selectedTimeStart);
+            Date dateEnd = dateFormat.parse(selectDateEnd + " " + selectedTimeEnd);
 
-            stTime = dateFormatNew.format(dates);
+            stTime = dateFormatNew.format(dateStart);
+            endTime = dateFormatNew.format(dateEnd);
 
 //            SimpleDateFormat timeFormat = new SimpleDateFormat("hh:mm");
 //            Date dateEnd = dateFormat.parse(time);
 
-            Calendar c = Calendar.getInstance();
-            c.setTime(dates);
+//            Calendar c = Calendar.getInstance();
+//            c.setTime(dates);
             //30 for add 30 minutes or -30 to minus 30 minutes
-            c.add(Calendar.MINUTE, 120);
-            Date timeMinus30 = c.getTime();
-            endTime = dateFormatNew.format(timeMinus30);
+//            c.add(Calendar.MINUTE, 120);
+//            Date timeMinus30 = c.getTime();
+//            endTime = dateFormatNew.format(timeMinus30);
 
 //            endTime = dateFormatNew.format(dates);
 
