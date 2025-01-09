@@ -66,7 +66,6 @@ public class DescriptionDialogFragment extends DialogFragment {
         if (resourceType.equals("Vehicle")) {
             tilDestination.setVisibility(View.VISIBLE);
             clBottom.setVisibility(View.VISIBLE);
-            tilDetail.setVisibility(View.GONE);
         }
 
         buttonContinue.setOnClickListener(v -> {
