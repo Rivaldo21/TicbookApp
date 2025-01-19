@@ -18,6 +18,9 @@ public interface ApiService {
     @GET("api/vehicles/")
     Call<VehicleResponse> getVehicles();
 
+    @GET("api/purpose/")
+    Call<PurposeResponse> getPurpose();
+
     @GET("api/bookings/")
     Call<BookingResponse> getBookings(@Query("page") int page);
 

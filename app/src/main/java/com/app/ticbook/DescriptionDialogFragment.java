@@ -1,13 +1,16 @@
 package com.app.ticbook;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.Spinner;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -15,6 +18,13 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.DialogFragment;
 
 import com.google.android.material.textfield.TextInputLayout;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class DescriptionDialogFragment extends DialogFragment {
 
@@ -54,6 +64,11 @@ public class DescriptionDialogFragment extends DialogFragment {
         Bundle mArgs = getArguments();
         resourceType = mArgs.getString("resourceType", "");
 
+        List<String> listString = new ArrayList<>();
+        List<Result>purposes = new ArrayList<>();
+
+
+
         EditText editTextDescription = view.findViewById(R.id.editTextDescription);
         EditText editTextDestination = view.findViewById(R.id.editTextDestination);
 
@@ -62,11 +77,37 @@ public class DescriptionDialogFragment extends DialogFragment {
         TextInputLayout tilDestination = view.findViewById(R.id.tilDestination);
         TextInputLayout tilDetail = view.findViewById(R.id.tilDetail);
         ConstraintLayout clBottom = view.findViewById(R.id.clBottom);
+        Spinner spinnerBottom = view.findViewById(R.id.spinnerRoomType);
 
         if (resourceType.equals("Vehicle")) {
             tilDestination.setVisibility(View.VISIBLE);
             clBottom.setVisibility(View.VISIBLE);
         }
+
+        ApiService apiService = ApiClient.getRetrofitInstance().create(ApiService.class);
+
+
+        apiService.getPurpose().enqueue(new Callback<PurposeResponse>() {
+            @Override
+            public void onResponse(Call<PurposeResponse> call, Response<PurposeResponse> response) {
+                if (response.isSuccessful() && response.body() != null) {
+                    for (Result data: response.body().getResults()){
+                        listString.add(data.getName());
+                    }
+
+                    ArrayAdapter<String> adapter = new ArrayAdapter<String>(requireContext(), android.R.layout.simple_spinner_dropdown_item, listString);
+                    spinnerBottom.setAdapter(adapter); // this will set list of values to spinner
+
+                } else {
+                    Log.e("TAG", "Error fetching vehicles: " + response.code() + " " + response.message());
+                }
+            }
+
+            @Override
+            public void onFailure(Call<PurposeResponse> call, Throwable t) {
+                Log.e("TAG", "Failure fetching vehicles: " + t.getMessage());
+            }
+        });
 
         buttonContinue.setOnClickListener(v -> {
             String description = editTextDescription.getText().toString();

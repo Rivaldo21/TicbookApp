@@ -115,7 +115,7 @@ public class RoomTypeDialogFragment extends DialogFragment {
                             listString.add(data.getName());
                         }
 
-                        ArrayAdapter<String> adapter = new ArrayAdapter<String>(requireContext(), android.R.layout.simple_spinner_dropdown_item, listString);
+                        VehicleSpinnerAdapter adapter = new VehicleSpinnerAdapter(requireContext(), (ArrayList<Vehicle>) vehicleList);
                         spinnerRoomType.setAdapter(adapter); // this will set list of values to spinner
 
                     } else {

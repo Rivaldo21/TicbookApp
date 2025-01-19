@@ -4,6 +4,7 @@ public class Vehicle {
     private int id;
     private String name;
     private String type;
+    private String driver_name;
     private int capacity;
     private String status;
 
@@ -14,6 +15,14 @@ public class Vehicle {
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    public String getDriver_name() {
+        return driver_name;
+    }
+
+    public void setDriver_name(String driver_name) {
+        this.driver_name = driver_name;
     }
 
     public String getName() {
