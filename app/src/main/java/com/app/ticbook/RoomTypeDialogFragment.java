@@ -156,7 +156,12 @@ public class RoomTypeDialogFragment extends DialogFragment {
         }
 
         buttonContinue.setOnClickListener(v -> {
-            String selectedType = spinnerRoomType.getSelectedItem().toString();
+            String selectedType;
+            if (resourceType.equals("Vehicle")) {
+                selectedType = ((Vehicle) spinnerRoomType.getSelectedItem()).getName();
+            } else {
+                selectedType = spinnerRoomType.getSelectedItem().toString();
+            }
 
             int idSelect = 0;
 
@@ -178,6 +183,7 @@ public class RoomTypeDialogFragment extends DialogFragment {
 
 
             if (listener != null) {
+                Log.d("2504", String.valueOf(idSelect));
                 listener.onRoomTypeSelected(idSelect);
             }
             dismiss();

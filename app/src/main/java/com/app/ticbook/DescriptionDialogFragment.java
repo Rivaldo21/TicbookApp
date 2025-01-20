@@ -29,11 +29,13 @@ import retrofit2.Response;
 public class DescriptionDialogFragment extends DialogFragment {
 
     public interface OnDescriptionEnteredListener {
-        void onDescriptionEntered(String destination, String description);
+        void onDescriptionEntered(String destination, String description, long id);
     }
 
     private OnDescriptionEnteredListener listener;
     String resourceType = "";
+    List<Result>purposes;
+
 
     public static DescriptionDialogFragment newInstance(
             String resourceType,
@@ -65,7 +67,7 @@ public class DescriptionDialogFragment extends DialogFragment {
         resourceType = mArgs.getString("resourceType", "");
 
         List<String> listString = new ArrayList<>();
-        List<Result>purposes = new ArrayList<>();
+        purposes = new ArrayList<>();
 
 
 
@@ -91,6 +93,7 @@ public class DescriptionDialogFragment extends DialogFragment {
             @Override
             public void onResponse(Call<PurposeResponse> call, Response<PurposeResponse> response) {
                 if (response.isSuccessful() && response.body() != null) {
+                    purposes = response.body().getResults();
                     for (Result data: response.body().getResults()){
                         listString.add(data.getName());
                     }
@@ -112,9 +115,19 @@ public class DescriptionDialogFragment extends DialogFragment {
         buttonContinue.setOnClickListener(v -> {
             String description = editTextDescription.getText().toString();
             String destination = editTextDestination.getText().toString();
+            String selectedType = spinnerBottom.getSelectedItem().toString();
+
+            long id = 0;
+
+            for (Result data: purposes){
+                if (data.getName().equals(selectedType)){
+                    id = data.getID();
+                    break;
+                }
+            }
 
             if (listener != null) {
-                listener.onDescriptionEntered(destination, description);
+                listener.onDescriptionEntered(destination, description,id);
             }
             dismiss();
         });

@@ -149,9 +149,9 @@ public class HomeFragment extends Fragment {
     }
 
     private void showDescriptionDialog(String resourceType, String selectedDate, String selectedTime, int selectedRoomType, int selectedDepartment) {
-        DescriptionDialogFragment descriptionDialog = DescriptionDialogFragment.newInstance(resourceType, selectedDate, selectedTime, selectedRoomType, selectedDepartment, (destination, description) -> {
+        DescriptionDialogFragment descriptionDialog = DescriptionDialogFragment.newInstance(resourceType, selectedDate, selectedTime, selectedRoomType, selectedDepartment, (destination, description, id) -> {
             // Setelah memasukkan deskripsi, proses data final
-            addBooking(resourceType, selectedDate, selectedTime, selectedRoomType, selectedDepartment, destination, description);
+            addBooking(resourceType, selectedDate, selectedTime, selectedRoomType, selectedDepartment, destination, description,id);
         });
         Bundle args = new Bundle();
         args.putString("resourceType", resourceType);
@@ -186,7 +186,7 @@ public class HomeFragment extends Fragment {
         });
     }
 
-    private void addBooking(String resourceType, String date, String time, int roomOrVehicleType, int department, String destination,String description) {
+    private void addBooking(String resourceType, String date, String time, int roomOrVehicleType, int department, String destination,String description, long id) {
 
         // Tambahkan logika penyimpanan atau API call di sini
         ApiService apiService = ApiClient.getRetrofitInstance().create(ApiService.class);
@@ -260,6 +260,7 @@ public class HomeFragment extends Fragment {
             if (description.isEmpty()){
                 description = "-";
             }
+            jsonBody.put("purpose", id);
             jsonBody.put("travel_description", description);
 
             jsonBody.put("departement", department);
@@ -276,6 +277,7 @@ public class HomeFragment extends Fragment {
         String auth = "Token " + token;
 
         RequestBody body = RequestBody.create(okhttp3.MediaType.parse("application/json; charset=utf-8"), String.valueOf(jsonBody));
+        Log.d("2504", jsonBody.toString());
         apiService.createBooking(auth, body).enqueue(new Callback<BookingResponse>() {
             @Override
             public void onResponse(Call<BookingResponse> call, Response<BookingResponse> response) {
