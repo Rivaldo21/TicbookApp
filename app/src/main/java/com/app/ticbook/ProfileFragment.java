@@ -79,16 +79,11 @@ public class ProfileFragment extends Fragment {
         // Initialize and set up TextView
         final TextView txtView = view.findViewById(R.id.tvView);
         txtView.setOnClickListener(v -> {
-            Toast.makeText(getContext(), "Sai husi perfil", Toast.LENGTH_SHORT).show();
-
-            // Hapus semua fragment dari back stack
-            getParentFragmentManager().popBackStack(null, androidx.fragment.app.FragmentManager.POP_BACK_STACK_INCLUSIVE);
-
-            // Ganti ProfileFragment dengan LoginFragment
-            getParentFragmentManager()
-                    .beginTransaction()
-                    .replace(R.id.fragment_container, new LoginFragment()) // Ganti fragment container dengan LoginFragment
-                    .commit();
+            SessionManager sessionManager = new SessionManager(requireContext());
+            sessionManager.sharedPreferences.edit().clear().apply();
+            Intent intent = new Intent(requireContext(), LoginActivity.class);
+            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            startActivity(intent);
         });
 
 

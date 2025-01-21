@@ -53,8 +53,7 @@ public class SessionManager {
     }
 
     public void setToken(String token) {
-        if (!token.equals(""))
-            saveSPString(TOKEN, token);
+        saveSPString(TOKEN, token);
     }
 
     public String getToken(){
