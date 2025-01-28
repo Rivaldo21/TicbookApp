@@ -7,8 +7,8 @@ public class SessionManager {
     public static final String SESSION_KEY = "session_user";
     private static final String PREF_NAME = "ticBook";
 
-    private static final String USERNAME = "nama";
-    private static final String IS_LOGIN = "is_login";
+    private static final String USERNAME = "TicBookSession";
+    private static final String IS_LOGIN = "username";
     private static final String TOKEN = "token";
 
     SharedPreferences sharedPreferences;
@@ -43,9 +43,9 @@ public class SessionManager {
         editor.commit();
     }
 
-    public void setUsername(String nama) {
-        if (!nama.equals(""))
-            saveSPString(USERNAME, nama);
+    public void setUsername(String username) {
+        if (!username.equals(""))
+            saveSPString(USERNAME, username);
     }
 
     public String getUsername(){

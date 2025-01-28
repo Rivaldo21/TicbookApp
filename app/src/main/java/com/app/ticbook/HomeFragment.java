@@ -4,7 +4,10 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.TextView;
 import android.view.ViewGroup;
+import android.widget.TextView;
+import java.util.Calendar;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -30,13 +33,33 @@ import retrofit2.Response;
 
 public class HomeFragment extends Fragment {
     private BookingListAdapter bookingAdapter;
+    private View view;
 
     private static final String TAG = "HomeFragment";
+    private SessionManager sessionManager;
+
+    TextView textView;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_home, container, false);
+
+        TextView textGreeting = view.findViewById(R.id.textGreeting);
+        String greetingMessage = getGreetingMessage();
+        textGreeting.setText(greetingMessage);
+
+        // Initialize SessionManager
+        sessionManager = new SessionManager(requireContext());
+
+        // Set up the username in the TextView
+        String username = sessionManager.getUsername(); // Assuming getUsername() fetches the logged-in user's name
+        TextView textSubGreeting = view.findViewById(R.id.textSubGreeting);
+        if (username != null && !username.isEmpty()) {
+            textSubGreeting.setText(username);
+        } else {
+            textSubGreeting.setText("Guest"); // Fallback if username is not available
+        }
 
         // Konfigurasi Status Bar Transparan
         setupTransparentStatusBar();
@@ -151,7 +174,7 @@ public class HomeFragment extends Fragment {
     private void showDescriptionDialog(String resourceType, String selectedDate, String selectedTime, int selectedRoomType, int selectedDepartment) {
         DescriptionDialogFragment descriptionDialog = DescriptionDialogFragment.newInstance(resourceType, selectedDate, selectedTime, selectedRoomType, selectedDepartment, (destination, description, id) -> {
             // Setelah memasukkan deskripsi, proses data final
-            addBooking(resourceType, selectedDate, selectedTime, selectedRoomType, selectedDepartment, destination, description,id);
+            addBooking(resourceType, selectedDate, selectedTime, selectedRoomType, selectedDepartment, destination, description, id);
         });
         Bundle args = new Bundle();
         args.putString("resourceType", resourceType);
@@ -159,6 +182,21 @@ public class HomeFragment extends Fragment {
         descriptionDialog.show(getParentFragmentManager(), "DescriptionDialog");
     }
 
+    private String getGreetingMessage() {
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTimeZone(java.util.TimeZone.getTimeZone("Asia/Dili"));
+
+        int hour = calendar.get(Calendar.HOUR_OF_DAY);
+        int minute = calendar.get(Calendar.MINUTE);
+
+        if (hour >= 5 && hour < 12) {
+            return "Bom Dia!";
+        } else if ((hour == 18 && minute < 50) || (hour >= 12 && hour < 18)) {
+            return "Boa Tarde!";
+        } else {
+            return "Boa Noite!";
+        }
+    }
 
     private void fetchAllBookings(int page, List<Booking> allBookings) {
         ApiService apiService = ApiClient.getRetrofitInstance().create(ApiService.class);
@@ -293,7 +331,7 @@ public class HomeFragment extends Fragment {
                 Log.e(TAG, "Failure fetching bookings: " + t.getMessage());
             }
         });
-        Toast.makeText(requireContext(), "Booking berhasil ditambahkan!", Toast.LENGTH_SHORT).show();
+        Toast.makeText(requireContext(), "Booking aumenta ona ho susesu!", Toast.LENGTH_SHORT).show();
 
         Fragment mFragment = new ListBookingFragment();
         getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, mFragment).addToBackStack(HomeFragment.TAG).commit();

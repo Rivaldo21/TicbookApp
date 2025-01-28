@@ -50,9 +50,9 @@ public class LoginActivity extends AppCompatActivity {
 
         btnLogin.setOnClickListener(V->{
             if (edtUsername.getText().toString().isEmpty()){
-                Toast.makeText(this, "Username tidak boleh kosong", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, "Username labele mamuk", Toast.LENGTH_SHORT).show();
             } else if (edtPassword.getText().toString().isEmpty()) {
-                Toast.makeText(this, "Password tidak boleh kosong", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, "Password labele mamuk", Toast.LENGTH_SHORT).show();
             } else {
                 login();
             }
@@ -85,7 +85,7 @@ public class LoginActivity extends AppCompatActivity {
                     session.setUsername(username);
                     session.setLogin(true);
 
-                    Toast.makeText(LoginActivity.this, "Login berhasil", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(LoginActivity.this, "Login susesu", Toast.LENGTH_SHORT).show();
 
                     Intent i = new Intent(LoginActivity.this, MainActivity.class);
                     i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);

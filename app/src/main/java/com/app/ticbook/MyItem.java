@@ -7,7 +7,7 @@ public class MyItem {
     };
 
     static String[] Headline = {
-            "Servisu", "Manuál TIC", "Sentru Ajuda", "Termu & Kondisaun", "WhatsApp", "Facebook", "Konaba TIC TIMOR"
+            "Lista Booking", "Manuál TIC", "Sentru Ajuda", "Termu & Kondisaun", "WhatsApp", "Servisu", "Konaba TIC TIMOR"
     };
 
     static String[] Subheadline = {
