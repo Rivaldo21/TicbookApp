@@ -9,7 +9,7 @@ public class BookingRequest {
     private String start_time;
     private String end_time;
     private String destination_address;
-    private String travel_description;
+    private String description;
 
     // Add constructor, getters, and setters
 
@@ -77,17 +77,17 @@ public class BookingRequest {
         this.destination_address = destinationAddress;
     }
 
-    public String getTravelDescription() {
-        return travel_description;
+    public String getDescription() {
+        return description;
     }
 
-    public void setTravelDescription(String travelDescription) {
-        this.travel_description = travelDescription;
+    public void setDescription(String Description) {
+        this.description = Description;
     }
 
     public BookingRequest(){};
 
-    public BookingRequest(String resourceType, int room, int vehicle, int departement, String requesterName, String startTime, String endTime, String destinationAddress, String travelDescription) {
+    public BookingRequest(String resourceType, int room, int vehicle, int departement, String requesterName, String startTime, String endTime, String destinationAddress, String Description) {
         this.resource_type = resourceType;
         this.room = room;
         this.vehicle = vehicle;
@@ -96,6 +96,6 @@ public class BookingRequest {
         this.start_time = startTime;
         this.end_time = endTime;
         this.destination_address = destinationAddress;
-        this.travel_description = travelDescription;
+        this.description = Description;
     }
 }

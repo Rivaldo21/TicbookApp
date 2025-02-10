@@ -9,11 +9,11 @@ public class Booking {
     private String formatted_start_time;
     private String formatted_end_time;
     private String destination_address;
-    private String travel_description;
+    private String description;
     private String driver_name;
     private String status;
 
-    private String description;
+//    private String description;
 
     // Additional fields for Room and Vehicle
     private RoomDetails room_details;
@@ -54,7 +54,7 @@ public class Booking {
     }
 
     public String getTravel_description() {
-        return travel_description;
+        return description;
     }
 
     public String getStatus() {

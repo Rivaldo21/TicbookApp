@@ -27,6 +27,12 @@ public interface ApiService {
     @POST("api/bookings/")
     Call<BookingResponse> createBooking(@Header("authorization") String auth, @Body RequestBody params);
 
+//    @GET("api/executive-bookings/")
+//    Call<ExecutiveBookingResponse> getExecutiveBookings(@Query("page") int page);
+//
+//    @POST("api/executive-bookings/")
+//    Call<ExecutiveBookingResponse> createExecutiveBooking(@Header("authorization") String auth, @Body RequestBody params);
+
     @GET("api/departements/")
     Call<DepartementResponse> getDepartements();
 

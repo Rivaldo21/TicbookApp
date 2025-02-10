@@ -81,6 +81,8 @@ public class HomeFragment extends Fragment {
         // OnClickListener untuk Vehicle
         view.findViewById(R.id.iconVehicle).setOnClickListener(v -> openBookingDialog("Vehicle"));
 
+        view.findViewById(R.id.iconExecutive).setOnClickListener(v -> openBookingDialog("Executive"));
+
         return view;
     }
 
@@ -271,7 +273,7 @@ public class HomeFragment extends Fragment {
         bookingRequest.setStartTime(stTime);
         bookingRequest.setEndTime(endTime);
         bookingRequest.setDestinationAddress(destination);
-        bookingRequest.setTravelDescription(description);
+        bookingRequest.setDescription(description);
 
         JSONObject jsonBody = new JSONObject();
 
@@ -283,6 +285,10 @@ public class HomeFragment extends Fragment {
                 jsonBody.put("vehicle", null);
 
                 jsonBody.put("destination_address", null);
+            }
+
+            if (resourceType.equals("Executive")) {
+                showDepartmentDialog(resourceType, "", "", 0);
             }
 
             if (resourceType.equals("Vehicle")) {
@@ -299,7 +305,7 @@ public class HomeFragment extends Fragment {
                 description = "-";
             }
             jsonBody.put("purpose", id);
-            jsonBody.put("travel_description", description);
+            jsonBody.put("description", description);
 
             jsonBody.put("departement", department);
             jsonBody.put("requester_name", "Duvia");
