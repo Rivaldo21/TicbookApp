@@ -52,6 +52,12 @@ public class CalendarDialogFragment extends DialogFragment {
         resourceType = mArgs.getString("resourceType", "");
         isStartTime = mArgs.getBoolean("isStartTime", true);
         timeStart = mArgs.getString("timeStart", "");
+        String desc;
+        if (resourceType == "exe") {
+            desc = mArgs.getString("desc", "");
+        } else {
+            desc = "";
+        }
 
         DatePicker datePicker = view.findViewById(R.id.datePicker);
         Button buttonContinue = view.findViewById(R.id.buttonContinue);

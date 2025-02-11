@@ -69,15 +69,31 @@ public class LoginActivity extends AppCompatActivity {
                 if (response.isSuccessful() && response.body() != null) {
                     String token = response.body().getToken();
 
-                    session.setToken(token);
-                    session.setUsername(username);
-                    session.setLogin(true);
+                    apiService.user("Token " + token).enqueue(new Callback<UserResponse>() {
+                        @Override
+                        public void onResponse(Call<UserResponse> call, Response<UserResponse> response) {
+                            if (response.isSuccessful() && response.body() != null) {
 
-                    Toast.makeText(LoginActivity.this, "Login berhasil", Toast.LENGTH_SHORT).show();
+                                session.setToken(token);
+                                session.saveUserData(response.body());
+                                session.setLogin(true);
 
-                    Intent i = new Intent(LoginActivity.this, MainActivity.class);
-                    i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                    startActivity(i);
+                                Toast.makeText(LoginActivity.this, "Login berhasil", Toast.LENGTH_SHORT).show();
+
+                                Intent i = new Intent(LoginActivity.this, MainActivity.class);
+                                i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                                startActivity(i);
+
+                            } else {
+                                Log.e("TAG", "Error fetching login: " + response.code() + " " + response.message());
+                            }
+                        }
+
+                        @Override
+                        public void onFailure(Call<UserResponse> call, Throwable t) {
+                            Log.e("TAG", "Failure fetching login: " + t.getMessage());
+                        }
+                    });
 
                 } else {
                     Log.e("TAG", "Error fetching login: " + response.code() + " " + response.message());

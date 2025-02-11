@@ -15,6 +15,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -23,6 +24,8 @@ import retrofit2.Response;
 public class ListBookingFragment extends Fragment {
 
     BookingListAdapter bookingListAdapter;
+    private ExeAdapter exeAdapter;
+
 
     @Nullable
     @Override
@@ -34,6 +37,7 @@ public class ListBookingFragment extends Fragment {
         requireActivity().getWindow().getDecorView().setSystemUiVisibility(
                 View.SYSTEM_UI_FLAG_VISIBLE
         );
+
 
         ImageView imgBack = view.findViewById(R.id.imgBack);
         imgBack.setOnClickListener(v -> {
@@ -47,10 +51,24 @@ public class ListBookingFragment extends Fragment {
 
         // Inisializa Adapter ho Lista Mamuk
         bookingListAdapter = new BookingListAdapter(new ArrayList<>());
-        recyclerView.setAdapter(bookingListAdapter);
+        exeAdapter = new ExeAdapter(new ArrayList<>());
+
+
+        if (getArguments() != null) {
+            String check = getArguments().getString("check");
+            Log.d("2504", check);
+            if (Objects.equals(check, "exe")) {
+                Log.d("2504", "ee");
+                recyclerView.setAdapter(exeAdapter);
+                fetchAllExe(1, new ArrayList<>());
+            } else {
+                recyclerView.setAdapter(bookingListAdapter);
+                fetchAllBookings(1, new ArrayList<>());
+            }
+        }
 
         // Fetch data
-        fetchAllBookings(1, new ArrayList<>());
+
 
         // Inflasaun layout ba fragment
         return view;
@@ -61,7 +79,7 @@ public class ListBookingFragment extends Fragment {
 
         apiService.getBookings(page).enqueue(new Callback<BookingResponse>() {
             @Override
-            public void onResponse(Call<BookingResponse> call, Response<BookingResponse> response) {
+            public void onResponse(@NonNull Call<BookingResponse> call, @NonNull Response<BookingResponse> response) {
                 if (response.isSuccessful() && response.body() != null) {
                     allBookings.addAll(response.body().getResults());
 
@@ -76,8 +94,34 @@ public class ListBookingFragment extends Fragment {
             }
 
             @Override
-            public void onFailure(Call<BookingResponse> call, Throwable t) {
+            public void onFailure(@NonNull Call<BookingResponse> call, @NonNull Throwable t) {
                 Log.e("TAG", "Failure fetching bookings: " + t.getMessage());
+            }
+        });
+    }
+
+    private void fetchAllExe(int page, List<ResultExecutive> allBookings) {
+        ApiService apiService = ApiClient.getRetrofitInstance().create(ApiService.class);
+
+        apiService.getExecutive(page).enqueue(new Callback<ExecutiveResponse>() {
+            @Override
+            public void onResponse(@NonNull Call<ExecutiveResponse> call, @NonNull Response<ExecutiveResponse> response) {
+                if (response.isSuccessful() && response.body() != null) {
+                    allBookings.addAll(response.body().getResults());
+
+                    if (response.body().getNext() != null) {
+                        fetchAllExe(page + 1, allBookings);
+                    } else {
+                        exeAdapter.setBookings(allBookings);
+                    }
+                } else {
+                    //Log.e(TAG, "Error fetching bookings: " + response.code() + " " + response.message());
+                }
+            }
+
+            @Override
+            public void onFailure(@NonNull Call<ExecutiveResponse> call, @NonNull Throwable t) {
+                //Log.e(TAG, "Failure fetching bookings: " + t.getMessage());
             }
         });
     }

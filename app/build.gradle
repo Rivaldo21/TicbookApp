@@ -41,6 +41,7 @@ dependencies {
     implementation 'androidx.navigation:navigation-fragment:2.7.4'
     implementation 'androidx.navigation:navigation-ui:2.7.4'
     implementation 'com.mikhaellopez:circularimageview:4.3.0'
+    implementation 'com.github.puskal-khadka:MultiSelectSpinner:1.0.1'
 
     implementation 'com.android.volley:volley:1.2.1'
     implementation 'com.squareup.okhttp3:logging-interceptor:4.9.0'

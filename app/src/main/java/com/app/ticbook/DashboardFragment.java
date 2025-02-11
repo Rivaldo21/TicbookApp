@@ -11,6 +11,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -38,7 +40,35 @@ public class DashboardFragment extends Fragment {
 
         // Inisializa RecyclerView
         RecyclerView recyclerView = view.findViewById(R.id.recyclerViewBookings);
+        LinearLayout roomL = view.findViewById(R.id.room_l);
+        LinearLayout karetaL = view.findViewById(R.id.kareta_l);
+        LinearLayout executiveL = view.findViewById(R.id.executive_l);
+        View view1 = view.findViewById(R.id.view);
+        View view2 = view.findViewById(R.id.view2);
+        View view3 = view.findViewById(R.id.view3);
         recyclerView.setLayoutManager(new LinearLayoutManager(requireContext()));
+
+
+        roomL.setOnClickListener(v -> {
+            view1.setVisibility(View.VISIBLE);
+            view2.setVisibility(View.GONE);
+            view3.setVisibility(View.GONE);
+            fetchAllBookings(1, new ArrayList<>());
+        });
+
+        karetaL.setOnClickListener(v -> {
+            view1.setVisibility(View.GONE);
+            view2.setVisibility(View.VISIBLE);
+            view3.setVisibility(View.GONE);
+            fetchAllBookings(1, new ArrayList<>());
+        });
+
+        executiveL.setOnClickListener(v -> {
+            view1.setVisibility(View.GONE);
+            view2.setVisibility(View.GONE);
+            view3.setVisibility(View.VISIBLE);
+
+        });
 
         // Inisializa Adapter ho Lista Mamuk
         bookingAdapter = new BookingListAdapter(new ArrayList<>());
@@ -75,4 +105,6 @@ public class DashboardFragment extends Fragment {
             }
         });
     }
+
+
 }

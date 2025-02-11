@@ -4,10 +4,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 
 public class SessionManager {
-    public static final String SESSION_KEY = "session_user";
     private static final String PREF_NAME = "ticBook";
-
-    private static final String USERNAME = "nama";
     private static final String IS_LOGIN = "is_login";
     private static final String TOKEN = "token";
 
@@ -24,32 +21,34 @@ public class SessionManager {
         editor = sharedPreferences.edit();
     }
 
-    public SessionManager(Context context, String PREF_NAME_PARAMS) {
-        this.context = context;
-        sharedPreferences = context.getSharedPreferences(PREF_NAME_PARAMS, Context.MODE_PRIVATE);
-        editor = sharedPreferences.edit();
-    }
-
-    public int getSession() {
-        return sharedPreferences.getInt(SESSION_KEY, -1);
-    }
-
-    public void unsetSession() {
-        editor.putInt(SESSION_KEY, -1).commit();
-    }
-
     public void saveSPBool(String keySP, boolean value) {
         editor.putBoolean(keySP, value);
         editor.commit();
     }
 
-    public void setUsername(String nama) {
-        if (!nama.equals(""))
-            saveSPString(USERNAME, nama);
+    public void saveUserData(UserResponse response) {
+        editor.putInt("user_id",response.getUserID());
+        editor.putString("username", response.getUsername());
+        editor.putString("first_name", response.getFirstName());
+        editor.putString("last_name", response.getLastName());
+        editor.putString("full_name", response.getFullName());
+        editor.putString("email", response.getEmail());
+        editor.putString("role", response.getRole());
+        editor.putString("department", response.getDepartement());
+        editor.apply();
     }
 
-    public String getUsername(){
-        return sharedPreferences.getString(USERNAME, "");
+    public UserResponse getUser() {
+        UserResponse response = new UserResponse();
+        response.setUserID(sharedPreferences.getInt("user_id", 111305));
+        response.setUsername(sharedPreferences.getString("username", ""));
+        response.setFirstName(sharedPreferences.getString("first_name", ""));
+        response.setLastName(sharedPreferences.getString("last_name", ""));
+        response.setFullName(sharedPreferences.getString("full_name", ""));
+        response.setEmail(sharedPreferences.getString("email", ""));
+        response.setRole(sharedPreferences.getString("role", ""));
+        response.setDepartement(sharedPreferences.getString("department", ""));
+        return response;
     }
 
     public void setToken(String token) {

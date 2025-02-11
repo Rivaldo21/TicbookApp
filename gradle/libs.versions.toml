@@ -11,6 +11,7 @@ core = "1.15.0"
 annotation = "1.9.1"
 lifecycleLivedataKtx = "2.8.7"
 lifecycleViewmodelKtx = "2.8.7"
+multiselectspinner = "1.0.1"
 
 [libraries]
 junit = { group = "junit", name = "junit", version.ref = "junit" }
@@ -24,6 +25,7 @@ core = { group = "androidx.core", name = "core", version.ref = "core" }
 annotation = { group = "androidx.annotation", name = "annotation", version.ref = "annotation" }
 lifecycle-livedata-ktx = { group = "androidx.lifecycle", name = "lifecycle-livedata-ktx", version.ref = "lifecycleLivedataKtx" }
 lifecycle-viewmodel-ktx = { group = "androidx.lifecycle", name = "lifecycle-viewmodel-ktx", version.ref = "lifecycleViewmodelKtx" }
+multiselectspinner = { module = "com.github.puskal-khadka:MultiSelectSpinner", version.ref = "multiselectspinner" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
