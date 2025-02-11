@@ -29,7 +29,7 @@ import java.util.ArrayList;
 public class ProfileFragment extends Fragment {
 
     private TextView tvUsername;
-
+    private SessionManager sessionManager;
     RecyclerView recyclerView;
     Button btn1;
     RecyclerView.Adapter recycleViewAdapter;
@@ -41,6 +41,24 @@ public class ProfileFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         // Inflate layout for fragment and save it to a variable
         View view = inflater.inflate(R.layout.fragment_profile, container, false);
+
+        sessionManager = new SessionManager(requireContext());
+
+        // Get the username from SessionManager
+        String username = sessionManager.getUsername(); // Assuming getUsername() is a method in SessionManager
+
+        // Find the TextView and set the username
+        tvUsername = view.findViewById(R.id.username);
+        if (username != null && !username.isEmpty()) {
+            tvUsername.setText(username);
+        } else {
+            tvUsername.setText("Guest");
+        }
+
+        // Remaining code for RecyclerView, Logout, etc.
+//        initializeRecyclerView(view);
+//
+//        return view;
 
         // Hide the ActionBar
         if (getActivity() instanceof AppCompatActivity) {
@@ -100,5 +118,22 @@ public class ProfileFragment extends Fragment {
 //        }
 
         return view;
+    }
+
+    private void initializeRecyclerView(View view) {
+        RecyclerView recyclerView = view.findViewById(R.id.recycleView);
+        recyclerView.setHasFixedSize(true);
+
+        RecyclerView.LayoutManager recycleViewLayoutManager = new LinearLayoutManager(getContext());
+        recyclerView.setLayoutManager(recycleViewLayoutManager);
+        recyclerView.addItemDecoration(new DividerItemDecoration(getContext(), DividerItemDecoration.VERTICAL));
+
+        ArrayList<ItemModel> data = new ArrayList<>();
+        for (int i = 0; i < MyItem.Headline.length; i++) {
+            data.add(new ItemModel(MyItem.Headline[i], MyItem.Subheadline[i], MyItem.iconlist[i]));
+        }
+
+        RecyclerView.Adapter recycleViewAdapter = new MyRecycleView(data);
+        recyclerView.setAdapter(recycleViewAdapter);
     }
 }
