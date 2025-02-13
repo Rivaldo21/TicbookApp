@@ -5,33 +5,35 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
 
-import com.puskal.multiselectspinner.MultiSelectSpinnerView;
+import com.app.ticbook.databinding.DialogSubstituteExeBinding;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class ParticipantsDialogFragment extends DialogFragment {
+public class ParticipantsDialogFragment extends DialogFragment implements SpinnerAdapter.Selected {
 
     public interface OnDescriptionEnteredListener {
         void onDescriptionEntered(List<Integer> integers);
     }
 
     private OnDescriptionEnteredListener listener;
-    private List<String> listString = new ArrayList<>();
+    private List<SpinnerData> listString = new ArrayList<>();
     private List<SubstituteResult> list = new ArrayList<>();
     private List<Integer> listInt = new ArrayList<>();
+
+    boolean isExpand = false;
 
     public static ParticipantsDialogFragment newInstance(
             OnDescriptionEnteredListener listener
@@ -41,23 +43,48 @@ public class ParticipantsDialogFragment extends DialogFragment {
         return fragment;
     }
 
-    @Nullable
-    @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.dialog_substitute_exe, container, false);
+    DialogSubstituteExeBinding binding;
 
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
         listString = new ArrayList<>();
         list = new ArrayList<>();
         listInt = new ArrayList<>();
+    }
 
-        MultiSelectSpinnerView multiSelectSpinnerView = view.findViewById(R.id.multiSelectSpinner);
+    @Nullable
+    @Override
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        binding = DialogSubstituteExeBinding.inflate(inflater, container, false);
+
+        return binding.getRoot();
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
 
         SessionManager sessionManager = new SessionManager(requireContext());
         String token = sessionManager.getToken();
         String auth = "Token " + token;
 
-        Button buttonContinue = view.findViewById(R.id.buttonContinue);
-        ImageView imgClose = view.findViewById(R.id.imgClose);
+        binding.spinner.constraintLayout.setOnClickListener(v -> {
+            if (isExpand) {
+                binding.spinner.constraintLayout.setBackgroundResource(R.drawable.bg_spinner);
+                binding.spinner.expand.setVisibility(View.GONE);
+                binding.spinner.icon.setImageResource(R.drawable.arrow_down_ic);
+                isExpand = false;
+            } else {
+                binding.spinner.constraintLayout.setBackgroundResource(R.drawable.bg_spinner2);
+                binding.spinner.expand.setVisibility(View.VISIBLE);
+                binding.spinner.icon.setImageResource(R.drawable.arrow_up_ic_white);
+
+                isExpand = true;
+            }
+        });
+
+        binding.spinner.valueRv.setLayoutManager(new LinearLayoutManager(requireContext()));
 
         ApiService apiService = ApiClient.getRetrofitInstance().create(ApiService.class);
 
@@ -67,17 +94,9 @@ public class ParticipantsDialogFragment extends DialogFragment {
                 if (response.isSuccessful() && response.body() != null) {
                     list = new ArrayList<>(response.body().getResults());
                     for (SubstituteResult data: list){
-                        listString.add(data.getFirstName() + " " + data.getLastName());
+                        listString.add(new SpinnerData(data.getFirstName() + " " + data.getLastName(), data.getID(), false));
                     }
-
-                    multiSelectSpinnerView.buildCheckedSpinner((ArrayList<String>) listString, (integers, s) -> {
-                        listInt.clear();
-                        for(int i : integers) {
-                            listInt.add(Math.toIntExact(list.get(i).getID()));
-                        }
-                        return null;
-                    });
-
+                    binding.spinner.valueRv.setAdapter(new SpinnerAdapter(listString, ParticipantsDialogFragment.this));
                 } else {
                     Log.e("TAG", "Error fetching departements: " + response.code() + " " + response.message());
                 }
@@ -89,8 +108,7 @@ public class ParticipantsDialogFragment extends DialogFragment {
             }
         });
 
-
-        buttonContinue.setOnClickListener(v -> {
+        binding.buttonContinue.setOnClickListener(v -> {
 
             if (listener != null) {
                 for(int i : listInt) {
@@ -101,15 +119,21 @@ public class ParticipantsDialogFragment extends DialogFragment {
             dismiss();
         });
 
-        imgClose.setOnClickListener(v-> dismiss());
-
-        return view;
+        binding.imgClose.setOnClickListener(v-> dismiss());
     }
 
     @Override
     public void onStart() {
         super.onStart();
-        getDialog().getWindow().setLayout(LinearLayout.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        Objects.requireNonNull(Objects.requireNonNull(getDialog()).getWindow()).setLayout(LinearLayout.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+    }
+
+    @Override
+    public void onSelected(List<Integer> data, List<String> s) {
+        listInt.clear();
+        listInt.addAll(data);
+        binding.spinner.selectedTxt.setText(String.join(", ", s));
+
     }
 }
 

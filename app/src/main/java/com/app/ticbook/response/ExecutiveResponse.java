@@ -1,5 +1,5 @@
-package com.app.ticbook;
-import com.google.gson.annotations.SerializedName;
+package com.app.ticbook.response;
+import com.app.ticbook.ResultExecutive;
 
 import java.util.List;
 

@@ -45,7 +45,7 @@ public class ProfileFragment extends Fragment {
         sessionManager = new SessionManager(requireContext());
 
         // Get the username from SessionManager
-        String username = sessionManager.getUsername(); // Assuming getUsername() is a method in SessionManager
+        String username = sessionManager.getUser().getUsername(); // Assuming getUsername() is a method in SessionManager
 
         // Find the TextView and set the username
         tvUsername = view.findViewById(R.id.username);

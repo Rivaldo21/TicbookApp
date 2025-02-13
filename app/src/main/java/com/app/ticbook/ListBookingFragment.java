@@ -13,6 +13,9 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.app.ticbook.response.BookingResponse;
+import com.app.ticbook.response.ExecutiveResponse;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -74,7 +77,7 @@ public class ListBookingFragment extends Fragment {
         return view;
     }
 
-    private void fetchAllBookings(int page, List<Booking> allBookings) {
+    private void fetchAllBookings(int page, List<BookingResponse.BookingResult> allBookings) {
         ApiService apiService = ApiClient.getRetrofitInstance().create(ApiService.class);
 
         apiService.getBookings(page).enqueue(new Callback<BookingResponse>() {
@@ -86,7 +89,7 @@ public class ListBookingFragment extends Fragment {
                     if (response.body().getNext() != null) {
                         fetchAllBookings(page + 1, allBookings);
                     } else {
-                        bookingListAdapter.setBookings(allBookings);
+                        bookingListAdapter.addList(allBookings);
                     }
                 } else {
                     Log.e("TAG", "Error fetching bookings: " + response.code() + " " + response.message());
@@ -112,7 +115,7 @@ public class ListBookingFragment extends Fragment {
                     if (response.body().getNext() != null) {
                         fetchAllExe(page + 1, allBookings);
                     } else {
-                        exeAdapter.setBookings(allBookings);
+                        exeAdapter.addList(allBookings);
                     }
                 } else {
                     //Log.e(TAG, "Error fetching bookings: " + response.code() + " " + response.message());

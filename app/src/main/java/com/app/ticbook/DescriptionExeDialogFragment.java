@@ -55,10 +55,15 @@ public class DescriptionExeDialogFragment extends DialogFragment {
         buttonContinue.setOnClickListener(v -> {
             String description = editTextDescription.getText().toString();
 
-            if (listener != null) {
-                listener.onDescriptionEntered(description);
+            if (description.isEmpty()) {
+
+            } else {
+                if (listener != null) {
+                    listener.onDescriptionEntered(description);
+                }
+                dismiss();
             }
-            dismiss();
+
         });
 
         imgClose.setOnClickListener(v-> dismiss());

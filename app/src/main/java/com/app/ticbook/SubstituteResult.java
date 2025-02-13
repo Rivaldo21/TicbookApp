@@ -3,7 +3,7 @@ package com.app.ticbook;
 import com.google.gson.annotations.SerializedName;
 
 public class SubstituteResult {
-    private long id;
+    private int id;
     private String username;
     @SerializedName("first_name")
     private String firstName;
@@ -11,8 +11,8 @@ public class SubstituteResult {
     private String lastName;
     private String email;
 
-    public long getID() { return id; }
-    public void setID(long value) { this.id = value; }
+    public int getID() { return id; }
+    public void setID(int value) { this.id = value; }
 
     public String getUsername() { return username; }
     public void setUsername(String value) { this.username = value; }

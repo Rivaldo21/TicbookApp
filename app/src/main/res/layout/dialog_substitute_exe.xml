@@ -40,11 +40,11 @@
         android:text="Tenke prenxe fatin &amp; observation..."
         android:textSize="14sp" />
 
-    <com.puskal.multiselectspinner.MultiSelectSpinnerView
-        android:id="@+id/multiSelectSpinner"
+    <include
+        android:id="@+id/spinner"
+        layout="@layout/spinner"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp" />
+        android:layout_height="wrap_content" />
 
     <Button
         android:id="@+id/buttonContinue"

@@ -44,10 +44,16 @@ public class LocNoteDialogFragment extends DialogFragment {
             String locs = loc.getText().toString();
             String obss = obs.getText().toString();
 
-            if (listener != null) {
-                listener.onDescriptionEntered(locs, obss);
+            if (locs.isEmpty() || obss.isEmpty()) {
+
+            } else {
+                if (listener != null) {
+                    listener.onDescriptionEntered(locs, obss);
+                }
+                dismiss();
             }
-            dismiss();
+
+
         });
 
         imgClose.setOnClickListener(v-> dismiss());

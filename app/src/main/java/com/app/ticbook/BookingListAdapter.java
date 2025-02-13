@@ -1,5 +1,6 @@
 package com.app.ticbook;
 
+import android.annotation.SuppressLint;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,119 +12,85 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.app.ticbook.databinding.ItemListBookingBinding;
+import com.app.ticbook.response.BookingResponse;
+
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
-public class BookingListAdapter extends RecyclerView.Adapter<BookingListAdapter.BookingViewHolder> {
+public class BookingListAdapter extends RecyclerView.Adapter<BookingListAdapter.ViewHolder> {
 
-    private List<Booking> bookingList;
-
-    public BookingListAdapter(List<Booking> bookingList) {
-        this.bookingList = bookingList != null ? bookingList : new ArrayList<>();
+    List<BookingResponse.BookingResult> bookingList;
+    int check = 0;
+    public BookingListAdapter(List<BookingResponse.BookingResult> bookingList) {
+        this.bookingList = bookingList;
     }
 
-    public void setBookings(List<Booking> bookings) {
-        this.bookingList = bookings != null ? bookings : new ArrayList<>();
+    @SuppressLint("NotifyDataSetChanged")
+    public void addList(List<BookingResponse.BookingResult> list) {
+        bookingList.addAll(list);
+        Log.d("2504", String.valueOf(bookingList.size()));
         notifyDataSetChanged();
     }
 
     @NonNull
     @Override
-    public BookingViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_list_booking, parent, false);
-        return new BookingViewHolder(view);
+    public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        ItemListBookingBinding binding = ItemListBookingBinding.inflate(LayoutInflater.from(parent.getContext()), parent,false);
+        return new ViewHolder(binding);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull BookingViewHolder holder, int position) {
-        Booking booking = bookingList.get(position);
+    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+        BookingResponse.BookingResult booking = bookingList.get(position);
 
-        // Set title
-        holder.textMeetingTitle.setText(
-                booking.getResource_type().equalsIgnoreCase("Room") ?
-                        (booking.getRoom_details() != null ? booking.getRoom_details().getName() : "Unknown Room") :
-                        (booking.getVehicle_details() != null ? booking.getVehicle_details().getName() : "Unknown Vehicle")
-        );
+        holder.binding.date2Txt.setText(Util.dateFormat(booking.getFormattedStartTime()));
+        holder.binding.liveTxt.setText(Util.timeFormat(booking.getFormattedStartTime()));
 
-        holder.textExpMeetingTitle.setText(
-                booking.getResource_type().equalsIgnoreCase("Room") ?
-                        (booking.getRoom_details() != null ? booking.getRoom_details().getName() : "Unknown Room") :
-                        (booking.getVehicle_details() != null ? booking.getVehicle_details().getName() : "Unknown Vehicle")
-        );
+        holder.binding.nameTxt.setText(booking.getPurposeDetails().getName());
+        holder.binding.statusTxt.setText(booking.getStatus());
 
-        holder.textMeetingTitleExp.setText(
-                booking.getResource_type().equalsIgnoreCase("Room") ?
-                        (booking.getRoom_details() != null ? booking.getRoom_details().getName() : "Unknown Room") :
-                        (booking.getVehicle_details() != null ? booking.getVehicle_details().getName() : "Unknown Vehicle")
-        );
-
-        // Toggle expandable content
-        holder.lyIcon.setOnClickListener(v -> {
-            boolean isExpanded = holder.expandableContent.getVisibility() == View.VISIBLE;
-            holder.expandableContent.setVisibility(isExpanded ? View.GONE : View.VISIBLE);
-            holder.clItem.setVisibility(isExpanded ? View.VISIBLE : View.GONE);
-
-            holder.chevronIcon.setImageResource(isExpanded ? R.drawable.ic_chevron_down : R.drawable.ic_chevron_up);
-        });
-
-        // Set requester name
-//        holder.textRequesterName.setText("Requester: " + booking.getRequester_name());
-
-        // Department Details
-//        holder.textDepartment.setText(
-//                "Department: " +
-//                        (booking.getDepartement_details() != null ? booking.getDepartement_details().getName() : "Unknown")
-//        );
-
-        // Set status
-//        holder.textMeetingStatus.setText("Status: " + booking.getStatus());
-
-        // Set date and time
-
-        String dateOnly = "", time = "", timeEnd = "";
-
-        SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy HH:mm");
-        SimpleDateFormat dateFormatDateOnly = new SimpleDateFormat("dd/MM/yyyy");
-        SimpleDateFormat dateFormatTimeOnly = new SimpleDateFormat("hh:mm");
-
-        try {
-            Date date = dateFormat.parse(booking.getFormatted_start_time());
-            Date date2 = dateFormat.parse(booking.getFormatted_end_time());
-
-            dateOnly = dateFormatDateOnly.format(date);
-            time = dateFormatTimeOnly.format(date);
-
-            timeEnd = dateFormatTimeOnly.format(date2);
-
-        } catch (ParseException e) {
+        if (booking.getRoomDetails() == null) {
+            holder.binding.roomTxt.setText(booking.getVehicleDetails().getName());
+        } else {
+            holder.binding.roomTxt.setText(booking.getRoomDetails().getName());
         }
 
-        holder.textMeetingDate.setText(dateOnly);
-        holder.textMeetingTime.setText(time);
+        if (check == 0) {
+            holder.binding.iconi.setImageResource(R.drawable.arrow_down_icc);
+            holder.binding.expandLayout.setVisibility(View.GONE);
+            holder.binding.collapseLayout.setVisibility(View.VISIBLE);
+        } else {
+            holder.binding.iconi.setImageResource(R.drawable.arrow_up_ic);
+            holder.binding.expandLayout.setVisibility(View.VISIBLE);
+            holder.binding.collapseLayout.setVisibility(View.GONE);
+        }
 
-        holder.textMeetingDateExp.setText(dateOnly);
-        holder.textMeetingTimeExp.setText(time + " - " + timeEnd);
 
-        holder.tvDescExp.setText(booking.getTravel_description());
+        holder.binding.departmentTxt.setText(booking.getDepartementDetails().getName());
+        holder.binding.requesterNameTxt.setText(String.valueOf(booking.getRequesterName()));
+        holder.binding.dateTxt.setText(Util.dateFormat(booking.getFormattedStartTime()));
+        holder.binding.timeTxt.setText(Util.timeFormat(booking.getFormattedStartTime()) + "-" + Util.timeFormat(booking.getFormattedEndTime()));
+        holder.binding.descTxt.setText(booking.getDescription());
 
-//        holder.textEndTime.setText("End: " + booking.getFormatted_end_time());
+        holder.binding.iconi.setOnClickListener(v -> {
+            if (check == 0) {
+                holder.binding.iconi.setImageResource(R.drawable.arrow_up_ic);
+                holder.binding.expandLayout.setVisibility(View.VISIBLE);
+                holder.binding.collapseLayout.setVisibility(View.GONE);
+                check--;
+            } else {
+                holder.binding.iconi.setImageResource(R.drawable.arrow_down_icc);
+                holder.binding.expandLayout.setVisibility(View.GONE);
+                holder.binding.collapseLayout.setVisibility(View.VISIBLE);
+                check++;
 
-        // Set destination (only for Vehicle)
-//        if ("Vehicle".equalsIgnoreCase(booking.getResource_type())) {
-//            holder.textDestination.setVisibility(View.VISIBLE);
-//            holder.textDestination.setText("Destination: " + booking.getDestination_address());
-//            holder.textDriver.setVisibility(View.VISIBLE);
-//            holder.textDriver.setText("Driver: " + booking.getVehicle_details().getDriver_name());
-//        } else {
-//            holder.textDestination.setVisibility(View.GONE);
-//            holder.textDriver.setVisibility(View.GONE);
-//        }
-
-        // Set description
-//        holder.textMeetingDescription.setText("Description: " + booking.getTravel_description());
+            }
+        });
     }
 
     @Override
@@ -131,38 +98,13 @@ public class BookingListAdapter extends RecyclerView.Adapter<BookingListAdapter.
         return bookingList.size();
     }
 
-    static class BookingViewHolder extends RecyclerView.ViewHolder {
-        TextView textMeetingTitle, textExpMeetingTitle, textMeetingTitleExp, textMeetingTimeExp, textMeetingDateExp, tvDescExp, textRequesterName, textDepartment, textMeetingDate, textMeetingTime, textEndTime, textDestination, textMeetingDescription, textDriver, textMeetingStatus;
-        ImageView chevronIcon;
-        View expandableContent;
-        LinearLayout clItem, lyIcon;
+    public static class ViewHolder extends RecyclerView.ViewHolder {
 
-        public BookingViewHolder(@NonNull View itemView) {
-            super(itemView);
-            textMeetingTitle = itemView.findViewById(R.id.textMeetingTitle);
-            textExpMeetingTitle = itemView.findViewById(R.id.textExpMeetingTitle);
-            textMeetingTitleExp = itemView.findViewById(R.id.tvTitleExp);
+        ItemListBookingBinding binding;
+        public ViewHolder(ItemListBookingBinding binding) {
+            super(binding.getRoot());
+            this.binding = binding;
 
-            textMeetingDate = itemView.findViewById(R.id.textMeetingDate);
-            textMeetingTime = itemView.findViewById(R.id.textMeetingTime);
-
-            textMeetingTimeExp = itemView.findViewById(R.id.textExpMeetingTime);
-            textMeetingDateExp = itemView.findViewById(R.id.textExpMeetingDate);
-
-            tvDescExp = itemView.findViewById(R.id.tvDescExp);
-
-//            textRequesterName = itemView.findViewById(R.id.textRequesterName);
-//            textDepartment = itemView.findViewById(R.id.textDepartment);
-
-//            textEndTime = itemView.findViewById(R.id.textEndTime);
-//            textDestination = itemView.findViewById(R.id.textDestination);
-//            textMeetingDescription = itemView.findViewById(R.id.textMeetingDescription);
-//            textDriver = itemView.findViewById(R.id.textDriver);
-//            textMeetingStatus = itemView.findViewById(R.id.textMeetingStatus);
-            chevronIcon = itemView.findViewById(R.id.chevronIcon);
-            expandableContent = itemView.findViewById(R.id.expandableContent);
-            clItem = itemView.findViewById(R.id.clItem);
-            lyIcon = itemView.findViewById(R.id.lyIcon);
         }
     }
 }
