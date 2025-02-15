@@ -58,10 +58,11 @@ public class HomeFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         binding.recyclerViewBookings.setLayoutManager(new LinearLayoutManager(requireContext()));
-
+        binding.recyclerViewExe.setLayoutManager(new LinearLayoutManager(requireContext()));
 
         SessionManager sessionManager = new SessionManager(requireContext());
         binding.textGreeting.setText("Halo " + sessionManager.getUser().getUsername());
+        binding.textSubGreeting.setText(sessionManager.getUser().getDepartement());
 
         if (sessionManager.getUser().getUserID() == 111305) {
             sessionManager.sharedPreferences.edit().clear().apply();
@@ -74,8 +75,38 @@ public class HomeFragment extends Fragment {
         bookingAdapter = new BookingListAdapter(new ArrayList<>());
         binding.recyclerViewBookings.setAdapter(bookingAdapter);
 
+        exeAdapter = new ExeAdapter(new ArrayList<>());
+        binding.recyclerViewExe.setAdapter(exeAdapter);
+
+        binding.roomL.setOnClickListener(v -> {
+            binding.view.setVisibility(View.VISIBLE);
+            binding.view2.setVisibility(View.GONE);
+            binding.view3.setVisibility(View.GONE);
+            binding.recyclerViewExe.setVisibility(View.GONE);
+            binding.recyclerViewBookings.setVisibility(View.VISIBLE);
+            fetchAllBookings(1, new ArrayList<>(),0);
+        });
+
+        binding.karetaL.setOnClickListener(v -> {
+            binding.view.setVisibility(View.GONE);
+            binding.view2.setVisibility(View.VISIBLE);
+            binding.view3.setVisibility(View.GONE);
+            binding.recyclerViewExe.setVisibility(View.GONE);
+            binding.recyclerViewBookings.setVisibility(View.VISIBLE);
+            fetchAllBookings(1, new ArrayList<>(),0);
+        });
+
+        binding.executiveL.setOnClickListener(v -> {
+            binding.view.setVisibility(View.GONE);
+            binding.view2.setVisibility(View.GONE);
+            binding.view3.setVisibility(View.VISIBLE);
+            binding.recyclerViewExe.setVisibility(View.VISIBLE);
+            binding.recyclerViewBookings.setVisibility(View.GONE);
+            fetchAllExe(1, new ArrayList<>(),0);
+        });
+
         // Fetch data
-        fetchAllBookings(1, new ArrayList<>());
+        fetchAllBookings(1, new ArrayList<>(),0);
 
         // OnClickListener untuk Room
         binding.iconRoom.setOnClickListener(v -> openBookingDialog("Room"));
@@ -242,17 +273,22 @@ public class HomeFragment extends Fragment {
     }
 
 
-    private void fetchAllBookings(int page, List<com.app.ticbook.response.BookingResponse.BookingResult> allBookings) {
+    private void fetchAllBookings(int page, List<com.app.ticbook.response.BookingResponse.BookingResult> allBookings, int check) {
         ApiService apiService = ApiClient.getRetrofitInstance().create(ApiService.class);
 
         apiService.getBookings(page).enqueue(new Callback<BookingResponse>() {
             @Override
             public void onResponse(@NonNull Call<BookingResponse> call, @NonNull Response<BookingResponse> response) {
                 if (response.isSuccessful() && response.body() != null) {
+                    if (check == 0) {
+                        allBookings.clear();
+                    }
                     allBookings.addAll(response.body().getResults());
 
+
+
                     if (response.body().getNext() != null) {
-                        fetchAllBookings(page + 1, allBookings);
+                        fetchAllBookings(page + 1, allBookings, 1);
                     } else {
                         bookingAdapter.addList(allBookings);
                     }
@@ -435,6 +471,35 @@ public class HomeFragment extends Fragment {
         bundle.putString("check", resourceType);
         mFragment.setArguments(bundle);
         requireActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, mFragment).addToBackStack(HomeFragment.TAG).commit();
+    }
+
+    private void fetchAllExe(int page, List<ResultExecutive> allBookings, int check) {
+        ApiService apiService = ApiClient.getRetrofitInstance().create(ApiService.class);
+
+        apiService.getExecutive(page).enqueue(new Callback<ExecutiveResponse>() {
+            @Override
+            public void onResponse(Call<ExecutiveResponse> call, Response<ExecutiveResponse> response) {
+                if (response.isSuccessful() && response.body() != null) {
+                    if (check == 0) {
+                        allBookings.clear();
+                    }
+                    allBookings.addAll(response.body().getResults());
+
+                    if (response.body().getNext() != null) {
+                        fetchAllExe(page + 1, allBookings, 1);
+                    } else {
+                        exeAdapter.addList(allBookings);
+                    }
+                } else {
+                    Log.e(TAG, "Error fetching bookings: " + response.code() + " " + response.message());
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ExecutiveResponse> call, Throwable t) {
+                Log.e(TAG, "Failure fetching bookings: " + t.getMessage());
+            }
+        });
     }
 
     @Override

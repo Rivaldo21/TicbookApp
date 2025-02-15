@@ -55,10 +55,9 @@ public class ProfileFragment extends Fragment {
             tvUsername.setText("Guest");
         }
 
-        // Remaining code for RecyclerView, Logout, etc.
-//        initializeRecyclerView(view);
-//
-//        return view;
+        TextView sub = view.findViewById(R.id.moneytize);
+
+        sub.setText(sessionManager.getUser().getDepartement());
 
         // Hide the ActionBar
         if (getActivity() instanceof AppCompatActivity) {
@@ -69,13 +68,11 @@ public class ProfileFragment extends Fragment {
         }
 
         // Configure status bar for the fragment
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            Activity activity = getActivity();
-            if (activity != null) {
-                View decor = activity.getWindow().getDecorView();
-                activity.getWindow().setStatusBarColor(Color.WHITE);
-                decor.setSystemUiVisibility(View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
-            }
+        Activity activity = getActivity();
+        if (activity != null) {
+            View decor = activity.getWindow().getDecorView();
+            activity.getWindow().setStatusBarColor(Color.WHITE);
+            decor.setSystemUiVisibility(View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
         }
 
         TextView name = view.findViewById(R.id.username);

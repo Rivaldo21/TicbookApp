@@ -32,6 +32,7 @@ public class BookingListAdapter extends RecyclerView.Adapter<BookingListAdapter.
 
     @SuppressLint("NotifyDataSetChanged")
     public void addList(List<BookingResponse.BookingResult> list) {
+        bookingList.clear();
         bookingList.addAll(list);
         Log.d("2504", String.valueOf(bookingList.size()));
         notifyDataSetChanged();

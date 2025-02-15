@@ -51,16 +51,27 @@ public class ExeAdapter extends RecyclerView.Adapter<ExeAdapter.ViewHolder> {
         holder.binding.timeTxt.setText(Util.timeFormat(booking.getFormattedStartTime()) + "-" + Util.timeFormat(booking.getFormattedEndTime()));
         holder.binding.descTxt.setText(booking.getDescription());
 
+        if (check == 0) {
+            holder.binding.iconi.setImageResource(R.drawable.arrow_down_icc);
+            holder.binding.expandLayout.setVisibility(View.GONE);
+            holder.binding.collapseLayout.setVisibility(View.VISIBLE);
+        } else {
+            holder.binding.iconi.setImageResource(R.drawable.arrow_up_ic);
+            holder.binding.expandLayout.setVisibility(View.VISIBLE);
+            holder.binding.collapseLayout.setVisibility(View.GONE);
+        }
+
         holder.binding.iconi.setOnClickListener(v -> {
             if (check == 0) {
-                holder.binding.iconi.setImageResource(R.drawable.arrow_down_icc);
-                holder.binding.expandLayout.setVisibility(View.GONE);
-                holder.binding.collapseLayout.setVisibility(View.VISIBLE);
-                check++;
-            } else {
                 holder.binding.iconi.setImageResource(R.drawable.arrow_up_ic);
                 holder.binding.expandLayout.setVisibility(View.VISIBLE);
                 holder.binding.collapseLayout.setVisibility(View.GONE);
+                check++;
+            } else {
+                holder.binding.iconi.setImageResource(R.drawable.arrow_down_icc);
+                holder.binding.expandLayout.setVisibility(View.GONE);
+                holder.binding.collapseLayout.setVisibility(View.VISIBLE);
+
                 check--;
             }
         });
