@@ -70,12 +70,12 @@ public class HomeFragment extends Fragment {
         binding.textGreeting.setText("Hai " + sessionManager.getUser().getUsername());
 //        binding.textSubGreeting.setText(sessionManager.getUser().getDepartement());
 
-        if (sessionManager.getUser().getUserID() == 111305) {
-            sessionManager.sharedPreferences.edit().clear().apply();
-            Intent intent = new Intent(requireContext(), LoginActivity.class);
-            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-            startActivity(intent);
-        }
+//        if (sessionManager.getUser().getUserID() == 111305) {
+//            sessionManager.sharedPreferences.edit().clear().apply();
+//            Intent intent = new Intent(requireContext(), LoginActivity.class);
+//            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+//            startActivity(intent);
+//        }
 
         // Inisialisasi Adapter dengan List Kosong
         bookingAdapter = new BookingListAdapter(new ArrayList<>());
@@ -168,7 +168,7 @@ public class HomeFragment extends Fragment {
     String selectDateEnd, selectedTimeEnd = "";
 
     private void showTimePickerDialog(String resourceType, String selectedDate, String desc) {
-        TimePickerDialogFragment timePickerDialog = TimePickerDialogFragment.newInstance(resourceType, selectedDate, selectedTime -> {
+        TimePickerDialogFragment timePickerDialog = TimePickerDialogFragment.newInstance(resourceType, selectedDate, true, selectedTime -> {
             // Setelah memilih waktu, tampilkan dialog untuk memilih tipe ruangan/kendaraan
 //            showRoomTypeDialog(resourceType, selectedDate, selectedTime);
             selectDateStart = selectedDate;
@@ -194,7 +194,7 @@ public class HomeFragment extends Fragment {
     }
 
     private void showTimePickerDialogEnd(String resourceType, String selectedDate, String desc) {
-        TimePickerDialogFragment timePickerDialog = TimePickerDialogFragment.newInstance(resourceType, selectedDate, selectedTime -> {
+        TimePickerDialogFragment timePickerDialog = TimePickerDialogFragment.newInstance(resourceType, selectedDate, false, selectedTime -> {
             // Setelah memilih waktu, tampilkan dialog untuk memilih tipe ruangan/kendaraan
             selectDateEnd = selectedDate;
             selectedTimeEnd = selectedTime;

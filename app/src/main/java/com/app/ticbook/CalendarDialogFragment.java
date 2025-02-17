@@ -96,6 +96,12 @@ public class CalendarDialogFragment extends DialogFragment {
         if (resourceType.equals("Vehicle")){
             tvTitlePickDate.setText("Data no oras sai?");
             tvDescPickDate.setText("Prenxe data no oras sai.");
+        } else if (resourceType.equals("exe") && isStartTime) {
+            tvTitlePickDate.setText("Data komesa?");
+            tvDescPickDate.setText("Hili loron komesa enkontru iha kraik..");
+        } else if (resourceType.equals("exe") && !isStartTime) {
+            tvTitlePickDate.setText("Data remata?");
+            tvDescPickDate.setText("Hili data no oras remata iha kraik.");
         }
 
         buttonContinue.setOnClickListener(v -> {

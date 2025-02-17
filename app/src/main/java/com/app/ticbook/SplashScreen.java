@@ -21,16 +21,16 @@ public class SplashScreen extends AppCompatActivity {
         handler.postDelayed(new Runnable() {
             @Override
             public void run() {
-                if (sessionManager.getIsLogin()){
+//                if (sessionManager.getIsLogin()){
                     Intent i = new Intent(SplashScreen.this, MainActivity.class);
                     i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                     startActivity(i);
 
-                } else {
-                    Intent i = new Intent(SplashScreen.this, LoginActivity.class);
-                    i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                    startActivity(i);
-                }
+//                } else {
+//                    Intent i = new Intent(SplashScreen.this, LoginActivity.class);
+//                    i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+//                    startActivity(i);
+//                }
 
             }
         }, 1000L);
