@@ -6,6 +6,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -24,6 +25,7 @@ import org.json.JSONObject;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.Objects;
@@ -57,12 +59,16 @@ public class HomeFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        TextView textGreeting = view.findViewById(R.id.textAutoGreeting);
+        String greetingMessage = getGreetingMessage();
+        textGreeting.setText(greetingMessage);
+
         binding.recyclerViewBookings.setLayoutManager(new LinearLayoutManager(requireContext()));
         binding.recyclerViewExe.setLayoutManager(new LinearLayoutManager(requireContext()));
 
         SessionManager sessionManager = new SessionManager(requireContext());
-        binding.textGreeting.setText("Halo " + sessionManager.getUser().getUsername());
-        binding.textSubGreeting.setText(sessionManager.getUser().getDepartement());
+        binding.textGreeting.setText("Hai " + sessionManager.getUser().getUsername());
+//        binding.textSubGreeting.setText(sessionManager.getUser().getDepartement());
 
         if (sessionManager.getUser().getUserID() == 111305) {
             sessionManager.sharedPreferences.edit().clear().apply();
@@ -272,6 +278,21 @@ public class HomeFragment extends Fragment {
         descriptionDialog.show(getParentFragmentManager(), "DescriptionDialog");
     }
 
+    private String getGreetingMessage() {
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTimeZone(java.util.TimeZone.getTimeZone("Asia/Dili"));
+
+        int hour = calendar.get(Calendar.HOUR_OF_DAY);
+        int minute = calendar.get(Calendar.MINUTE);
+
+        if (hour >= 5 && hour < 12) {
+            return "Bom Dia!";
+        } else if ((hour == 18 && minute < 50) || (hour >= 12 && hour < 18)) {
+            return "Boa Tarde!";
+        } else {
+            return "Boa Noite!";
+        }
+    }
 
     private void fetchAllBookings(int page, List<com.app.ticbook.response.BookingResponse.BookingResult> allBookings, int check) {
         ApiService apiService = ApiClient.getRetrofitInstance().create(ApiService.class);

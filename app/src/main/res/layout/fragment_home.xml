@@ -216,7 +216,7 @@
                     android:layout_width="40dp"
                     android:layout_height="48dp"
                     android:layout_marginTop="8dp"
-                    android:src="@drawable/executive"
+                    android:src="@drawable/ic_executive"
                     app:layout_constraintBottom_toTopOf="@+id/textExe"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.5"
@@ -267,7 +267,7 @@
                     android:layout_width="48dp"
                     android:layout_height="48dp"
                     android:layout_marginTop="8dp"
-                    android:src="@drawable/room"
+                    android:src="@drawable/ic_rooms"
                     app:layout_constraintBottom_toTopOf="@+id/textRoom"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.5"
@@ -322,7 +322,7 @@
                     android:layout_width="48dp"
                     android:layout_height="48dp"
                     android:layout_marginTop="8dp"
-                    android:src="@drawable/vehicle"
+                    android:src="@drawable/ic_car"
                     app:layout_constraintBottom_toTopOf="@+id/textVehicle"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.5"
@@ -371,23 +371,12 @@
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="@drawable/bg_gradient"
                 android:orientation="vertical"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent">
 
                 <TextView
-                    android:id="@+id/textGreeting"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="@font/inter_extrabold"
-                    android:text="Halo Bomdia!"
-                    android:textColor="@android:color/white"
-                    android:textSize="20sp"
-                    android:textStyle="bold" />
-
-                <TextView
-                    android:id="@+id/textSubGreeting"
+                    android:id="@+id/textAutoGreeting"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="4dp"
@@ -395,6 +384,27 @@
                     android:text="Rivaldo Jose Guterres"
                     android:textColor="@android:color/white"
                     android:textSize="15sp" />
+
+                <TextView
+                    android:id="@+id/textGreeting"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/inter_extrabold"
+                    android:text="username"
+                    android:textColor="@android:color/white"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
+
+<!--                <TextView-->
+<!--                    android:id="@+id/textSubGreeting"-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_marginTop="4dp"-->
+<!--                    android:fontFamily="@font/inter"-->
+<!--                    android:text="Rivaldo Jose Guterres"-->
+<!--                    android:textColor="@android:color/white"-->
+<!--                    android:textSize="15sp" />-->
+
             </LinearLayout>
 
             <!-- Room and Vehicle Cards -->

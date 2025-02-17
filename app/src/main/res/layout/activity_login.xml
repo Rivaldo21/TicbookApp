@@ -13,7 +13,7 @@
         android:id="@+id/bgrounded"
         android:layout_width="match_parent"
         android:layout_height="250dp"
-        android:background="@drawable/rounded_header"
+        android:background="@drawable/bg_gradient"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
@@ -150,7 +150,7 @@
                 android:backgroundTint="@color/blue"
                 android:textColor="@color/white"
                 android:textAllCaps="false"
-                android:background="@drawable/rounded_button" />
+                app:background="@drawable/rounded_button" />
         </LinearLayout>
     </androidx.cardview.widget.CardView>
 
