@@ -33,7 +33,7 @@ public class DashboardFragment extends Fragment {
 
         // Konfigura status bar kor default ba DashboardFragment
         requireActivity().getWindow().setStatusBarColor(
-            getResources().getColor(R.color.statusBarColor, null)
+            getResources().getColor(R.color.blue, null)
         );
         requireActivity().getWindow().getDecorView().setSystemUiVisibility(
              View.SYSTEM_UI_FLAG_VISIBLE
