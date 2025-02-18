@@ -3,35 +3,42 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:fitsSystemWindows="true"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
-<!--    android:background="@color/light_blue">-->
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true">
 
     <!-- Header Background -->
     <View
         android:id="@+id/bgrounded"
         android:layout_width="match_parent"
-        android:layout_height="250dp"
-        android:background="@drawable/bg_gradient"
+        android:layout_height="270dp"
+        android:background="@drawable/bg_gradient_login"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 
-    <!-- Logo and Title -->
+    <ImageView
+        android:id="@+id/ilustration"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="@id/bgrounded"
+        android:layout_gravity="center"
+        android:src="@drawable/ic_ilustration" />
+
+    <!-- Logo dan Text Header -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:paddingTop="40dp"
-        app:layout_constraintTop_toTopOf="@id/bgrounded"
+        android:paddingTop="30dp"
+        app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent">
 
         <ImageView
             android:id="@+id/logoLayout"
-            android:layout_width="80dp"
-            android:layout_height="80dp"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
             android:layout_gravity="center"
             android:src="@drawable/ic_logo_tic" />
 
@@ -39,8 +46,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_marginTop="10dp"
-            android:text="Today Meeting"
+            android:text="TIC BOOKING"
             android:textSize="20sp"
             android:textColor="@color/white"
             android:textStyle="bold" />
@@ -49,10 +55,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_marginTop="5dp"
-            android:text="Add new event today"
+            android:text="Kria ajenda ba atividade lor-loron nian!"
             android:textSize="14sp"
-            android:textColor="@color/gray" />
+            android:textColor="@color/white" />
+
     </LinearLayout>
 
     <!-- CardView for Login -->
@@ -61,8 +67,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="20dp"
-        android:layout_marginTop="30dp"
-        android:elevation="4dp"
+        android:layout_marginTop="-80dp"
+        android:elevation="6dp"
         app:cardCornerRadius="16dp"
         app:layout_constraintTop_toBottomOf="@id/bgrounded"
         app:layout_constraintStart_toStartOf="parent"
@@ -83,6 +89,7 @@
                 android:textColor="@color/black"
                 android:gravity="center" />
 
+            <!-- Input Nama -->
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/tilUsername"
                 android:layout_width="match_parent"
@@ -92,10 +99,10 @@
                 app:boxBackgroundMode="outline"
                 app:boxStrokeColor="@color/blue"
                 app:boxStrokeWidth="1dp"
-                app:boxCornerRadiusTopStart="16dp"
-                app:boxCornerRadiusTopEnd="16dp"
-                app:boxCornerRadiusBottomStart="16dp"
-                app:boxCornerRadiusBottomEnd="16dp">
+                app:boxCornerRadiusTopStart="12dp"
+                app:boxCornerRadiusTopEnd="12dp"
+                app:boxCornerRadiusBottomStart="12dp"
+                app:boxCornerRadiusBottomEnd="12dp">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/edtUsername"
@@ -107,6 +114,7 @@
                     android:hint="Naran" />
             </com.google.android.material.textfield.TextInputLayout>
 
+            <!-- Input Password -->
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/tilPassword"
                 android:layout_width="match_parent"
@@ -116,10 +124,10 @@
                 app:boxBackgroundMode="outline"
                 app:boxStrokeColor="@color/blue"
                 app:boxStrokeWidth="1dp"
-                app:boxCornerRadiusTopStart="16dp"
-                app:boxCornerRadiusTopEnd="16dp"
-                app:boxCornerRadiusBottomStart="16dp"
-                app:boxCornerRadiusBottomEnd="16dp">
+                app:boxCornerRadiusTopStart="12dp"
+                app:boxCornerRadiusTopEnd="12dp"
+                app:boxCornerRadiusBottomStart="12dp"
+                app:boxCornerRadiusBottomEnd="12dp">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/edtPassword"
@@ -131,22 +139,24 @@
                     android:hint="Password" />
             </com.google.android.material.textfield.TextInputLayout>
 
+            <!-- Pesan Info -->
             <TextView
                 android:id="@+id/tvMessage"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
-                android:text="Klik iha ne hodi kontiua tama ba perfil!"
+                android:text="Naran &amp; Password rejistu ona husi admin? \nKlik tama hodi kontiua tama ba o nia perfil!"
                 android:textColor="@color/gray"
                 android:textSize="14sp"
                 android:gravity="center" />
 
+            <!-- Tombol Login -->
             <Button
                 android:id="@+id/btnLogin"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
-                android:text="Login"
+                android:text="Tama"
                 android:backgroundTint="@color/blue"
                 android:textColor="@color/white"
                 android:textAllCaps="false"

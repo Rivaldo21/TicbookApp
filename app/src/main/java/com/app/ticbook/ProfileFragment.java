@@ -45,12 +45,12 @@ public class ProfileFragment extends Fragment {
         sessionManager = new SessionManager(requireContext());
 
         // Get the username from SessionManager
-        String username = sessionManager.getUser().getUsername(); // Assuming getUsername() is a method in SessionManager
+        String getFullName = sessionManager.getUser().getFullName(); // Assuming getUsername() is a method in SessionManager
 
         // Find the TextView and set the username
         tvUsername = view.findViewById(R.id.username);
-        if (username != null && !username.isEmpty()) {
-            tvUsername.setText(username);
+        if (getFullName != null && !getFullName.isEmpty()) {
+            tvUsername.setText(getFullName);
         } else {
             tvUsername.setText("Guest");
         }

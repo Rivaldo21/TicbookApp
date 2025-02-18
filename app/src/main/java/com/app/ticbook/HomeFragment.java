@@ -1,6 +1,10 @@
 package com.app.ticbook;
 
+import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -50,7 +54,20 @@ public class HomeFragment extends Fragment {
 
         setupTransparentStatusBar();
 
+        Activity activity = getActivity();
+        if (activity != null) {
+            // Ambil drawable dari background layout
+            Drawable background = binding.getRoot().getBackground();
+            int backgroundColor = Color.WHITE; // Warna default jika background tidak berupa ColorDrawable
 
+            if (background instanceof ColorDrawable) {
+                backgroundColor = ((ColorDrawable) background).getColor();
+            }
+
+            View decor = activity.getWindow().getDecorView();
+            activity.getWindow().setStatusBarColor(backgroundColor);
+            decor.setSystemUiVisibility(View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
+        }
 
         return binding.getRoot();
     }
@@ -67,7 +84,7 @@ public class HomeFragment extends Fragment {
         binding.recyclerViewExe.setLayoutManager(new LinearLayoutManager(requireContext()));
 
         SessionManager sessionManager = new SessionManager(requireContext());
-        binding.textGreeting.setText("Hai " + sessionManager.getUser().getUsername());
+        binding.textGreeting.setText(sessionManager.getUser().getFullName());
 //        binding.textSubGreeting.setText(sessionManager.getUser().getDepartement());
 
         if (sessionManager.getUser().getUserID() == 111305) {
