@@ -110,8 +110,8 @@
                     android:layout_height="wrap_content"
                     android:inputType="text"
                     android:textColor="@color/black"
-                    android:textColorHint="@color/gray"
-                    android:hint="Naran" />
+                    android:textColorHint="@color/gray"/>
+
             </com.google.android.material.textfield.TextInputLayout>
 
             <!-- Input Password -->
@@ -120,7 +120,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
-                android:hint="Password"
                 app:boxBackgroundMode="outline"
                 app:boxStrokeColor="@color/blue"
                 app:boxStrokeWidth="1dp"
@@ -137,6 +136,7 @@
                     android:textColor="@color/black"
                     android:textColorHint="@color/gray"
                     android:hint="Password" />
+
             </com.google.android.material.textfield.TextInputLayout>
 
             <!-- Pesan Info -->
