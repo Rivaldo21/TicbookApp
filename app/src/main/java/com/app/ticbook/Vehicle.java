@@ -8,6 +8,15 @@ public class Vehicle {
     private int capacity;
     private String status;
 
+    public Vehicle(int id, String name, String type, String driver_name, int capacity, String status) {
+        this.id = id;
+        this.name = name;
+        this.type = type;
+        this.driver_name = driver_name;
+        this.capacity = capacity;
+        this.status = status;
+    }
+
     // Getters and Setters
     public int getId() {
         return id;

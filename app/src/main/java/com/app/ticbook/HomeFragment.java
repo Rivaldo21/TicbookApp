@@ -397,8 +397,19 @@ public class HomeFragment extends Fragment {
             jsonBody.put("requester_name", sessionManager.getUser().getUserID());
             jsonBody.put("location", loc);
             jsonBody.put("participants", p);
-            jsonBody.put("room", selectedRoomType);
-            jsonBody.put("vehicle", selectedVehicleType);
+
+            if (selectedRoomType == 0){
+                jsonBody.put("room", null);
+            } else {
+                jsonBody.put("room", selectedRoomType);
+            }
+
+            if (selectedVehicleType == 0) {
+                jsonBody.put("vehicle", null);
+            } else {
+                jsonBody.put("vehicle", selectedVehicleType);
+            }
+
             jsonBody.put("substitute_executive", s);
             jsonBody.put("start_time", stTime);
             jsonBody.put("end_time", endTime);

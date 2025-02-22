@@ -43,8 +43,16 @@ public class VehicleSpinnerAdapter extends ArrayAdapter<Vehicle> {
         // It is used the name to the TextView when the
         // current item is not null.
         if (currentItem != null) {
-            title.setText(currentItem.getName() + "(" + currentItem.getDriver_name() + ")");
-            subtitle.setText(currentItem.getCapacity() + " Passengers");
+
+            if (currentItem.getName().equals("Tipu kareta")){
+                title.setText(currentItem.getName());
+                subtitle.setVisibility(View.GONE);
+                subtitle.setText("");
+            } else {
+                title.setText(currentItem.getName() + "(" + currentItem.getDriver_name() + ")");
+                subtitle.setText(currentItem.getCapacity() + " Passengers");
+                subtitle.setVisibility(View.VISIBLE);
+            }
         }
         return convertView;
     }

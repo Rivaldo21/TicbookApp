@@ -110,7 +110,29 @@ public class RoomTypeDialogFragment extends DialogFragment {
                 @Override
                 public void onResponse(Call<VehicleResponse> call, Response<VehicleResponse> response) {
                     if (response.isSuccessful() && response.body() != null) {
-                        vehicleList = new ArrayList<>(response.body().getResults());
+
+                        vehicleList.add(new Vehicle(
+                                0,
+                                "Tipu kareta",
+                                "",
+                                "",
+                                0,
+                                ""
+                        ));
+
+                        if (response.body().getResults().isEmpty()){
+                            for (Vehicle v: response.body().getResults()){
+                                vehicleList.add(new Vehicle(
+                                        v.getId(),
+                                        v.getName(),
+                                        v.getType(),
+                                        v.getDriver_name(),
+                                        v.getCapacity(),
+                                        v.getStatus()
+                                ));
+                            }
+                        }
+
                         for (Vehicle data: vehicleList){
                             listString.add(data.getName());
                         }
@@ -135,6 +157,8 @@ public class RoomTypeDialogFragment extends DialogFragment {
                 public void onResponse(Call<RoomResponse> call, Response<RoomResponse> response) {
                     if (response.isSuccessful() && response.body() != null) {
                         roomList = new ArrayList<>(response.body().getResults());
+
+                        listString.add("Room");
                         for (Room data: roomList){
                             listString.add(data.getName());
                         }
