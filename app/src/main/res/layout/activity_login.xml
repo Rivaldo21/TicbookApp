@@ -5,6 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/blueF7"
     android:fitsSystemWindows="true">
 
     <!-- Header Background -->
@@ -96,6 +97,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
                 android:hint="Naran"
+                app:hintTextColor="@color/blue"
+                app:cursorColor="@color/blue"
                 app:boxBackgroundMode="outline"
                 app:boxStrokeColor="@color/blue"
                 app:boxStrokeWidth="1dp"
@@ -122,7 +125,9 @@
                 android:layout_marginTop="10dp"
                 app:boxBackgroundMode="outline"
                 app:boxStrokeColor="@color/blue"
+                app:hintTextColor="@color/blue"
                 app:boxStrokeWidth="1dp"
+                app:cursorColor="@color/blue"
                 app:boxCornerRadiusTopStart="12dp"
                 app:boxCornerRadiusTopEnd="12dp"
                 app:boxCornerRadiusBottomStart="12dp"
@@ -145,7 +150,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
-                android:text="Naran &amp; Password rejistu ona husi admin? \nKlik tama hodi kontiua tama ba o nia perfil!"
+                android:text="Naran &amp; Password rejistu ona husi admin? \nKlik tama hodi kontinua tama ba o nia perfil!"
                 android:textColor="@color/gray"
                 android:textSize="14sp"
                 android:gravity="center" />
@@ -155,6 +160,7 @@
                 android:id="@+id/btnLogin"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:paddingVertical="16dp"
                 android:layout_marginTop="20dp"
                 android:text="Tama"
                 android:backgroundTint="@color/blue"
@@ -162,6 +168,7 @@
                 android:textAllCaps="false"
                 app:background="@drawable/rounded_button" />
         </LinearLayout>
+
     </androidx.cardview.widget.CardView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

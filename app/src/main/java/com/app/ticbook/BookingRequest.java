@@ -5,11 +5,11 @@ public class BookingRequest {
     private int room;
     private int vehicle;
     private int departement;
-    private String requester_name;
+    private int requester_name;
     private String start_time;
     private String end_time;
     private String destination_address;
-    private String description;
+    private String description = "";
 
     // Add constructor, getters, and setters
 
@@ -45,11 +45,11 @@ public class BookingRequest {
         this.departement = departement;
     }
 
-    public String getRequesterName() {
+    public int getRequesterName() {
         return requester_name;
     }
 
-    public void setRequesterName(String requesterName) {
+    public void setRequesterName(int requesterName) {
         this.requester_name = requesterName;
     }
 
@@ -81,13 +81,13 @@ public class BookingRequest {
         return description;
     }
 
-    public void setDescription(String Description) {
-        this.description = Description;
+    public void setDescription(String description) {
+        this.description = (description != null) ? description : "";
     }
 
     public BookingRequest(){};
 
-    public BookingRequest(String resourceType, int room, int vehicle, int departement, String requesterName, String startTime, String endTime, String destinationAddress, String Description) {
+    public BookingRequest(String resourceType, int room, int vehicle, int departement, int requesterName, String startTime, String endTime, String destinationAddress, String Description) {
         this.resource_type = resourceType;
         this.room = room;
         this.vehicle = vehicle;

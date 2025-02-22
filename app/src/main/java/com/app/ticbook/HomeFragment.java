@@ -421,7 +421,7 @@ public class HomeFragment extends Fragment {
                 Log.e(TAG, "Failure fetching bookings: " + t.getMessage());
             }
         });
-        Toast.makeText(requireContext(), "Booking berhasil ditambahkan!", Toast.LENGTH_SHORT).show();
+        Toast.makeText(requireContext(), "Booking aumenta ona ho susesu!", Toast.LENGTH_SHORT).show();
 
         Fragment mFragment = new ListBookingFragment();
         Bundle bundle = new Bundle();
@@ -475,7 +475,7 @@ public class HomeFragment extends Fragment {
                 description = "-";
             }
             jsonBody.put("purpose", id);
-            jsonBody.put("travel_description", description);
+            jsonBody.put("description", description);
 
             jsonBody.put("departement", department);
             jsonBody.put("requester_name", "Duvia");

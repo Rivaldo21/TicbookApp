@@ -56,6 +56,7 @@ public class DescriptionExeDialogFragment extends DialogFragment {
             String description = editTextDescription.getText().toString();
 
             if (description.isEmpty()) {
+                editTextDescription.setError("Description is required");
 
             } else {
                 if (listener != null) {
