@@ -73,7 +73,7 @@ public class BookingListAdapter extends RecyclerView.Adapter<BookingListAdapter.
 
 
         holder.binding.departmentTxt.setText(booking.getDepartementDetails().getName());
-        holder.binding.requesterNameTxt.setText(String.valueOf(booking.getRequesterName()));
+        holder.binding.requesterNameTxt.setText(booking.getRequesterNameDetails());
         holder.binding.dateTxt.setText(Util.dateFormat(booking.getFormattedStartTime()));
         holder.binding.timeTxt.setText(Util.timeFormat(booking.getFormattedStartTime()) + "-" + Util.timeFormat(booking.getFormattedEndTime()));
         holder.binding.descTxt.setText(booking.getDescription());

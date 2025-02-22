@@ -38,6 +38,10 @@ public class BookingResponse {
         private PurposeDetail departementDetails;
         @SerializedName("requester_name")
         private int requesterName;
+
+        @SerializedName("requester_name_details")
+        private String requesterNameDetails;
+
         @SerializedName("start_time")
         private String startTime;
         @SerializedName("end_time")
@@ -132,6 +136,10 @@ public class BookingResponse {
         public void setRequesterName(int requesterName) {
             this.requesterName = requesterName;
         }
+
+        public String getRequesterNameDetails() {return requesterNameDetails;}
+
+        public void setRequesterNameDetails(String requesterNameDetails) {this.requesterNameDetails = requesterNameDetails;}
 
         public String getStartTime() {
             return startTime;
@@ -269,8 +277,6 @@ public class BookingResponse {
             public void setName(String value) { this.name = value; }
         }
     }
-
-
 }
 
 

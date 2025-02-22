@@ -478,7 +478,7 @@ public class HomeFragment extends Fragment {
             jsonBody.put("description", description);
 
             jsonBody.put("departement", department);
-            jsonBody.put("requester_name", "Duvia");
+            jsonBody.put("requester_name", "Default");
             jsonBody.put("start_time", stTime);
             jsonBody.put("end_time", endTime);
 
