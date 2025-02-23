@@ -41,12 +41,13 @@ public class ExeAdapter extends RecyclerView.Adapter<ExeAdapter.ViewHolder> {
         holder.binding.date2Txt.setText(Util.dateFormat(booking.getFormattedStartTime()));
         holder.binding.liveTxt.setText(Util.timeFormat(booking.getFormattedStartTime()));
 
+        holder.binding.requesterNameTxt.setText(booking.getRequestName());
+
         holder.binding.nameTxt.setText(booking.getDescription());
         holder.binding.statusTxt.setText(booking.getStatus());
 
         holder.binding.roomTxt.setText("-");
         holder.binding.departmentTxt.setText("-");
-        holder.binding.requesterNameTxt.setText("-");
         holder.binding.dateTxt.setText(Util.dateFormat(booking.getFormattedStartTime()));
         holder.binding.timeTxt.setText(Util.timeFormat(booking.getFormattedStartTime()) + "-" + Util.timeFormat(booking.getFormattedEndTime()));
         holder.binding.descTxt.setText(booking.getDescription());

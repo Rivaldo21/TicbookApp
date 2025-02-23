@@ -22,6 +22,11 @@ public class ResultExecutive {
     private String formattedEndTime;
     private String status;
     private String obs;
+    @SerializedName("requester_name")
+    private String requestName;
+
+    public String getRequestName() { return requestName; }
+    public void setRequestName(String value) { this.requestName = value; }
 
     public long getID() { return id; }
     public void setID(long value) { this.id = value; }
