@@ -120,7 +120,7 @@ public class RoomTypeDialogFragment extends DialogFragment {
                                 ""
                         ));
 
-                        if (response.body().getResults().isEmpty()){
+                        if (!response.body().getResults().isEmpty()){
                             for (Vehicle v: response.body().getResults()){
                                 vehicleList.add(new Vehicle(
                                         v.getId(),
