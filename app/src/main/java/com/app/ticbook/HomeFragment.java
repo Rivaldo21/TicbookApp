@@ -155,14 +155,14 @@ public class HomeFragment extends Fragment {
         selectedTimeEnd = "";
 
         if (Objects.equals(resourceType, "exe")) {
-            DescriptionExeDialogFragment descDialog = DescriptionExeDialogFragment.newInstance( desc -> {
+            DescriptionExeDialogFragment descDialog = DescriptionExeDialogFragment.newInstance( selectPurpose -> {
                 CalendarDialogFragment datePickerDialog = CalendarDialogFragment.newInstance(resourceType, selectedDate -> {
                     // Setelah memilih tanggal, tampilkan dialog untuk memilih waktu
-                    showTimePickerDialog(resourceType, selectedDate, desc);
+                    showTimePickerDialog(resourceType, selectedDate, selectPurpose);
                 });
                 Bundle args = new Bundle();
                 args.putString("resourceType", resourceType);
-                args.putString("desc", desc);
+                args.putString("desc", selectPurpose);
                 args.putBoolean("isStartTime", true);
                 datePickerDialog.setArguments(args);
                 datePickerDialog.show(getParentFragmentManager(), "DatePickerDialog");

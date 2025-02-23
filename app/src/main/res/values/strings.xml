@@ -32,6 +32,14 @@
         <item>Site Visit</item>
     </string-array>
 
+    <string-array name="spPilihPurpose">
+        <item>Purpose</item>
+        <item>Official Meeting</item>
+        <item>Document Delivery</item>
+        <item>Guest Transport</item>
+        <item>Site Visit</item>
+    </string-array>
+
     <string-array name="spTotalPasejero">
         <item>Total Pasajeiro</item>
         <item>Kadeira 3</item>

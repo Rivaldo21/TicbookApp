@@ -37,7 +37,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
         android:layout_marginBottom="16dp"
-        android:text="Hakerek deskrisaun iha kraik.."
+        android:text="Add new event today"
         android:textSize="14sp" />
 
     <com.google.android.material.textfield.TextInputLayout
@@ -79,20 +79,25 @@
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/tilDetail"
-        android:layout_marginTop="20dp"
-        android:hint="Detalle"
-        app:expandedHintEnabled="false"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:background="@drawable/bg_rounded_button"
+        android:backgroundTint="@color/gray"
+        android:layout_marginTop="10dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <EditText
-            android:id="@+id/editTextDescription"
+        <Spinner
+            android:id="@+id/spinnerPurpose"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_margin="10dp"
+            app:layout_constraintBottom_toBottomOf="parent" />
 
-    </com.google.android.material.textfield.TextInputLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
 
     <Button
         android:id="@+id/buttonContinue"

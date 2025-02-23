@@ -29,7 +29,7 @@ import retrofit2.Response;
 public class DescriptionExeDialogFragment extends DialogFragment {
 
     public interface OnDescriptionEnteredListener {
-        void onDescriptionEntered(String description);
+        void onDescriptionEntered(String selectPurpose);
     }
 
     private OnDescriptionEnteredListener listener;
@@ -47,24 +47,46 @@ public class DescriptionExeDialogFragment extends DialogFragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.dialog_description_exe, container, false);
 
-        EditText editTextDescription = view.findViewById(R.id.editTextDescription);
-
         Button buttonContinue = view.findViewById(R.id.buttonContinue);
         ImageView imgClose = view.findViewById(R.id.imgClose);
 
-        buttonContinue.setOnClickListener(v -> {
-            String description = editTextDescription.getText().toString();
+        Spinner spinnerPurpose = view.findViewById(R.id.spinnerPurpose);
 
-            if (description.isEmpty()) {
-                editTextDescription.setError("Description is required");
+        ApiService apiService = ApiClient.getRetrofitInstance().create(ApiService.class);
 
-            } else {
-                if (listener != null) {
-                    listener.onDescriptionEntered(description);
+        apiService.getPurpose().enqueue(new Callback<PurposeResponse>() {
+            @Override
+            public void onResponse(Call<PurposeResponse> call, Response<PurposeResponse> response) {
+                if (response.isSuccessful() && response.body() != null) {
+                    List<String> listString = new ArrayList<>();
+
+//                    listString.add("Hili Purpose");
+                    for (Result data: response.body().getResults()){
+                        listString.add(data.getName());
+                    }
+
+                    ArrayAdapter<String> adapter = new ArrayAdapter<String>(requireContext(), android.R.layout.simple_spinner_dropdown_item, listString);
+                    spinnerPurpose.setAdapter(adapter); // this will set list of values to spinner
+
+                } else {
+                    Log.e("TAG", "Error fetching vehicles: " + response.code() + " " + response.message());
                 }
-                dismiss();
             }
 
+            @Override
+            public void onFailure(Call<PurposeResponse> call, Throwable t) {
+                Log.e("TAG", "Failure fetching vehicles: " + t.getMessage());
+            }
+        });
+
+
+        buttonContinue.setOnClickListener(v -> {
+            String selectPurpose = spinnerPurpose.getSelectedItem().toString();
+
+            if (listener != null) {
+                listener.onDescriptionEntered(selectPurpose);
+            }
+            dismiss();
         });
 
         imgClose.setOnClickListener(v-> dismiss());
